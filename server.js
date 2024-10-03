@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import methodOverride from "method-override";
 import morgan from "morgan";
 import session from "express-session";
+import favicon from "serve-favicon";
 
 // models import
 
@@ -19,6 +20,9 @@ import session from "express-session";
 // initialize express
 const app = express();
 
+// port info
+const PORT = process.env.PORT ? process.env.PORT : "3000";
+
 // mongoose connect
 mongoose.connect(process.env.MONGODB_URI)
 mongoose.connection.on("connected", () => {
@@ -28,7 +32,8 @@ mongoose.connection.on("connected", () => {
 /* --------------------------------Middleware--------------------------------*/
 
 const middleware = () => {
-  
+    
+    app.use(favicon('public/favicon.ico'));
     app.use(express.static('public')); // CSS file
     // first allows to parse URL-encoded data from forms
     app.use(express.urlencoded({ extended: false }));
@@ -57,6 +62,11 @@ const middleware = () => {
 /* --------------------------------Routes--------------------------------*/
 
 // Main routes
+app.get("/", (req, res) => {
+    // console.log(req.session.user);
+    // res.render("index", { user: req.session.user });
+    res.render("index");
+});
 
 
 // Signed in routes
