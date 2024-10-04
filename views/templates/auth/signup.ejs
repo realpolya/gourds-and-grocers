@@ -1,0 +1,45 @@
+<%- include('../../partials/layout.ejs') %>
+
+    <h1>Create a new account</h1>
+
+    <form action="/auth/sign-up" method="POST">
+
+        <div class="form-div">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required />
+        </div>
+
+        <div class="form-div">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required />
+        </div>
+
+        <div class="form-div">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input
+            type="password"
+            name="confirmPassword"
+            id="confirmPassword"
+            required
+            />
+        </div>
+
+        <div class="form-div">
+            <label for="account">Type of account</label>
+            <select id="account" name="account" required>
+                <option value="" disabled selected>---Select your option---</option>
+                <option value="grocer">Grocer (selling)</option>
+                <option value="shopper">Shopper (shopping)</option>
+            </select>
+        </div>
+
+        <div class="form-div"><button type="submit">Sign up</button></div>
+
+    </form>
+
+    <!-- buttons -->
+    
+
+
+
+<%- include('../../partials/layout-end.ejs') %>

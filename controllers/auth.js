@@ -69,7 +69,7 @@ const signIn = async (req, res) => {
 
 // GET routes
 router.get("/sign-up", (req, res) => {
-    res.render("auth/sign-up.ejs");
+    res.render("templates/auth/signup.ejs");
 });
 
 router.get("/sign-in", (req, res) => {
