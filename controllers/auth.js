@@ -73,7 +73,7 @@ router.get("/sign-up", (req, res) => {
 });
 
 router.get("/sign-in", (req, res) => {
-    res.render("auth/sign-in.ejs");
+    res.render("templates/auth/signin.ejs");
 });
 
 // POST routes

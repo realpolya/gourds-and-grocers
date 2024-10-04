@@ -14,7 +14,7 @@ export default mongoose.model('User', new mongoose.Schema({
         enum: ['grocer', 'shopper'],
         required: true,
     },
-    name: {
+    username: {
         type: String,
         required: true,
     },

@@ -66,6 +66,11 @@ form {
 
 /* Classes */
 
+.info-input {
+    background-color: #E79069;
+    border-radius: 1rem;
+}
+
 .form-div {
     padding: 1rem;
 }
