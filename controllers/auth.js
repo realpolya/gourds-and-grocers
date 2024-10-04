@@ -11,11 +11,13 @@ const router = Router();
 
 const signUp = async (req, res) => {
     
+    // password check
     if (req.body.password !== req.body.confirmPassword) {
         console.log("Passwords do not match");
         return res.send("Passwords do not match");
     }
 
+    // user already exists check
     const userInDatabase = await User.findOne({ username: req.body.username });
 
     if (userInDatabase) {
@@ -24,14 +26,16 @@ const signUp = async (req, res) => {
 
     // hash password
     req.body.password = bcrypt.hashSync(req.body.password, 10);
-    console.log(req.body.password);
 
     const user = await User.create(req.body);
-    console.log(user);
 
     // console log users
     const allUsers = await User.find();
     console.log(allUsers);
+
+    if (user.account === "grocer"){
+        res.render("templates/grocer/grocer-home.ejs", user)
+    }
 
     res.send(`Thank you for signing up ${user.username}`)
 
@@ -40,28 +44,43 @@ const signUp = async (req, res) => {
 const signIn = async (req, res) => {
 
     // confirm the user exists
-    const findUser = await User.findOne({ username: req.body.username })
-    if (!findUser) {
+    const user = await User.findOne({ username: req.body.username })
+    if (!user) {
         return res.send("Login failed. Please try again.");
     }
 
     // compare password
-    const checkPass = bcrypt.compareSync(req.body.password, findUser.password);
+    const checkPass = bcrypt.compareSync(req.body.password, user.password);
     if (!checkPass) {
         return res.send("Login failed. Please try again.")
     }
 
     // create an object for the user
     req.session.user = { 
-        username: findUser.username,
-        _id: findUser._id
+        username: user.username,
+        _id: user._id
     };
-    
-    // asynchronous callback
-    req.session.save(() => {
-        res.redirect("/");
-        // res.render("/", { req });
-    });
+
+    await req.session.save();
+    console.log(user)
+
+    if (user.account === "grocer"){
+        
+        res.render("templates/grocer/grocer-home.ejs", { user });
+
+    } else {
+        
+        res.render("templates/shopper/shopper-home.ejs", { user });
+
+        // res.send(`Thank you for signing in ${user.username}! Yay!`)
+
+    }    
+
+    // // asynchronous callback
+    // req.session.save(() => {
+    //     res.redirect("/");
+    //     // res.render("/", { req });
+    // });
 
 }
 
