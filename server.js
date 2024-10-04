@@ -16,6 +16,8 @@ import Cart from "./models/model-cart.js";
 // controllers import
 
 // middleware import
+import { isSignedIn } from "./middleware/is-signed-in.js";
+import { userToView } from "./middleware/user-view.js";
 
 
 /* --------------------------------Express & Mongoose--------------------------------*/
