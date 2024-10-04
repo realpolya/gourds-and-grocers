@@ -27,5 +27,10 @@ export default mongoose.model('User', new mongoose.Schema({
         required: true,
         default: 0,
     },
+    activated: {
+        type: Boolean,
+        required: true,
+        default: true
+    },
     pastOrders: [orderSchema],
 }));
