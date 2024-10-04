@@ -14,6 +14,7 @@ import Grocery from "./models/model-grocery.js";
 import Cart from "./models/model-cart.js";
 
 // controllers import
+import authController from "./controllers/auth.js";
 
 // middleware import
 import { isSignedIn } from "./middleware/is-signed-in.js";
@@ -55,27 +56,37 @@ const middleware = () => {
     }))
   
     // routes to authenticate
-    // app.use(userToView);
+    app.use(userToView);
   
     // use ejs
     app.set('view engine', 'ejs');
   
   }
-  middleware();
 
+middleware();
 
 /* --------------------------------Routes--------------------------------*/
 
 // Main routes
+
+// home page
 app.get("/", (req, res) => {
     // console.log(req.session.user);
     // res.render("index", { user: req.session.user });
     res.render("index");
 });
 
+// Marketplace view page
+
+// Item view page
+
+
+app.use("/auth", authController);
 
 // Signed in routes
-
+app.use(isSignedIn);
+// app.use("/recipes", recipesController);
+// app.use("/ingredients", ingredientsController);
 
 // Listen
 app.listen(PORT, () => {

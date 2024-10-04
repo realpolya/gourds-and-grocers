@@ -7,28 +7,6 @@ import bcrypt from "bcrypt";
 
 const router = Router();
 
-/* --------------------------------Routes--------------------------------*/
-
-// GET routes
-router.get("/sign-up", (req, res) => {
-    res.render("auth/sign-up.ejs");
-});
-
-router.get("/sign-in", (req, res) => {
-    res.render("auth/sign-in.ejs");
-});
-
-// POST routes
-router.post("/sign-up", signUp);
-
-router.post("/sign-in", signIn);
-
-router.get("/sign-out", (req, res) => {
-    req.session.destroy(() => {
-        res.redirect("/");
-    });
-})
-
 /* --------------------------------Functions--------------------------------*/
 
 const signUp = async (req, res) => {
@@ -86,6 +64,28 @@ const signIn = async (req, res) => {
     });
 
 }
+
+/* --------------------------------Routes--------------------------------*/
+
+// GET routes
+router.get("/sign-up", (req, res) => {
+    res.render("auth/sign-up.ejs");
+});
+
+router.get("/sign-in", (req, res) => {
+    res.render("auth/sign-in.ejs");
+});
+
+// POST routes
+router.post("/sign-up", signUp);
+
+router.post("/sign-in", signIn);
+
+router.get("/sign-out", (req, res) => {
+    req.session.destroy(() => {
+        res.redirect("/");
+    });
+})
 
 /* --------------------------------Exports--------------------------------*/
 
