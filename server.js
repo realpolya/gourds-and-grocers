@@ -15,6 +15,7 @@ import Cart from "./models/model-cart.js";
 
 // controllers import
 import authController from "./controllers/auth.js";
+import groceriesController from "./controllers/groceries.js";
 
 // middleware import
 import { isSignedIn } from "./middleware/is-signed-in.js";
@@ -85,8 +86,7 @@ app.use("/auth", authController);
 
 // Signed in routes
 app.use(isSignedIn);
-// app.use("/recipes", recipesController);
-// app.use("/ingredients", ingredientsController);
+app.use("/groceries", groceriesController);
 
 // Listen
 app.listen(PORT, () => {

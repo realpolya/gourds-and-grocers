@@ -95,16 +95,16 @@ router.get("/sign-in", (req, res) => {
     res.render("templates/auth/signin.ejs");
 });
 
-// POST routes
-router.post("/sign-up", signUp);
-
-router.post("/sign-in", signIn);
-
 router.get("/sign-out", (req, res) => {
     req.session.destroy(() => {
         res.redirect("/");
     });
 })
+
+// POST routes
+router.post("/sign-up", signUp);
+
+router.post("/sign-in", signIn);
 
 /* --------------------------------Exports--------------------------------*/
 

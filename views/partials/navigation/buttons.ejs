@@ -1,11 +1,57 @@
-<div id="buttons">
-    <form action="/auth/sign-up" method="GET">
-        <button type="submit">Sign Up</button>
-    </form>
-    <form action="/auth/sign-in" method="GET">
-        <button type="submit">Sign In</button>
-    </form>
-    <form action="/auth/sign-in" method="GET">
-        <button type="submit">View Marketplace</button>
-    </form>
-</div>
+
+<% if (user) { %>
+
+    <% if (user.account === "grocer") { %>
+    
+        <div id="buttons">
+            <form action="/auth/sign-in" method="GET">
+                <button type="submit">View Marketplace</button>
+            </form>
+            <form action="/groceries/new" method="GET">
+                <button type="submit">New Listing</button>
+            </form>
+            <form action="/groceries" method="GET">
+                <button type="submit">View Your Listings</button>
+            </form>
+            <form action="/auth/sign-up" method="GET">
+                <button type="submit">View Profits</button>
+            </form>
+            <form action="/auth/sign-out" method="GET">
+                <button type="submit">Sign Out</button>
+            </form>
+        </div>
+
+    <% } else if (user.account === "shopper") { %>
+        
+        <div id="buttons">
+            <form action="/auth/sign-in" method="GET">
+                <button type="submit">View Marketplace</button>
+            </form>
+            <form action="/auth/sign-up" method="GET">
+                <button type="submit">View Cart</button>
+            </form>
+            <form action="/auth/sign-up" method="GET">
+                <button type="submit">View Balance</button>
+            </form>
+            <form action="/auth/sign-out" method="GET">
+                <button type="submit">Sign Out</button>
+            </form>
+        </div>
+
+    <%  } %>
+
+<% } else { %>
+
+    <div id="buttons">
+        <form action="/auth/sign-up" method="GET">
+            <button type="submit">Sign Up</button>
+        </form>
+        <form action="/auth/sign-in" method="GET">
+            <button type="submit">Sign In</button>
+        </form>
+        <form action="/auth/sign-in" method="GET">
+            <button type="submit">View Marketplace</button>
+        </form>
+    </div>
+    
+<% } %>

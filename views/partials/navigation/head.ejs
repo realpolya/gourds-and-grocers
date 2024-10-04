@@ -4,34 +4,38 @@
             <h1>G & G</h1>
         </div>
 
-        <% if (!user) { %>
+        <% if (user) { %>
+
+            <% if (user.account === "grocer") { %>
             
+                <div id="right-site-menu">
+                    <a href="/">Marketplace</a>
+                    <a href="/">New</a>
+                    <a href="/">Your listings</a>
+                    <a href="/auth/sign-out">Sign Out</a>
+                    <a href="https://github.com/realpolya">Creator</a>
+                </div>
+    
+            <% } else if (user.account === "shopper") { %>
+                
+                <div id="right-site-menu">
+                    <a href="/">Marketplace</a>
+                    <a href="/">Cart</a>
+                    <a href="/auth/sign-out">Sign Out</a>
+                    <a href="https://github.com/realpolya">Creator</a>
+                </div>
+
+            <%  } %>
+        
+        <% } else { %>
+
             <div id="right-site-menu">
                 <a href="/">Marketplace</a>
                 <a href="/auth/sign-in">Sign In</a>
                 <a href="/auth/sign-up">Sign Up</a>
                 <a href="https://github.com/realpolya">Creator</a>
             </div>
-
-        <% } else if (user.account === "grocer") { %>
             
-            <div id="right-site-menu">
-                <a href="/">Marketplace</a>
-                <a href="/">New</a>
-                <a href="/">Your listings</a>
-                <a href="/auth/sign-out">Sign Out</a>
-                <a href="https://github.com/realpolya">Creator</a>
-            </div>
-
-        <% } else if (user.account === "shopper") { %>
-            
-            <div id="right-site-menu">
-                <a href="/">Marketplace</a>
-                <a href="/">Cart</a>
-                <a href="/auth/sign-out">Sign Out</a>
-                <a href="https://github.com/realpolya">Creator</a>
-            </div>
-
         <% } %>
     </div>
 </header>
