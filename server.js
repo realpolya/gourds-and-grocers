@@ -9,6 +9,9 @@ import session from "express-session";
 import favicon from "serve-favicon";
 
 // models import
+import User from "./models/model-user.js";
+import Grocery from "./models/model-grocery.js";
+import Cart from "./models/model-cart.js";
 
 // controllers import
 

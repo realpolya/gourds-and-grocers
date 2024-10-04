@@ -6,7 +6,7 @@ export default mongoose.model('Grocery', new mongoose.Schema({
         required: true,
     },
     seller: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
     price: {

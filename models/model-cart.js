@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 // cartItem schema
 const cartItemSchema = new mongoose.Schema({
     item: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
     quantity: {
@@ -15,7 +15,7 @@ const cartItemSchema = new mongoose.Schema({
 
 export default mongoose.model('Cart', new mongoose.Schema({
     owner: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
     items: [cartItemSchema],
