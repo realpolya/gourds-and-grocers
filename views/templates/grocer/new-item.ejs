@@ -1,6 +1,65 @@
 <%- include('../../partials/layout.ejs') %>
 
     <h2>New Listing</h2>
+
+    <form class="info-input" id="new-listing" action="/groceries" method="POST">
+
+        <div class="form-div">
+            <label for="name">Listing title:</label>
+            <input type="text" name="name" id="name" />
+        </div>
+
+        <div class="form-div">
+            <label for="price">Price:</label>
+            <input type="text" name="price" id="price" />
+        </div>
+
+        <div class="form-div">
+            <label for="quantity">Quantity:</label>
+            <input type="text" name="quantity" id="quantity" />
+        </div>
+
+        <div class="form-div">
+            <label for="image">Link to the image:</label>
+            <input type="text" name="image" id="image" />
+        </div>
+
+        <div class="form-div">
+            <label for="info">Description of item:</label>
+            <textarea type="text" name="info" id="info" placeholder="Description of item"></textarea>
+        </div>
+
+        <div class="form-div">
+            <label for="from">Where from:</label>
+            <input type="text" name="from" id="from" />
+        </div>
+
+        <div class="form-div">
+            <label for="resupplied">Restocked?</label>
+            <select id="resupplied" name="resupplied" required>
+                <option value="" disabled selected>---Select your option---</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+
+        <div class="form-div">
+            <label for="frequency">If yes, specify restocking frequency in days:</label>
+            <input type="text" name="frequency" id="frequency" />
+        </div>
+
+        <div class="form-div">
+            <label for="halloween">Special Halloween item?</label>
+            <select id="halloween" name="halloween" required>
+                <option value="" disabled selected>---Select your option---</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+
+        <div class="form-div"><button id="post-button" type="submit">Add Listing</button></div>
+
+    </form> 
     
     <%- include('../../partials/navigation/buttons.ejs') %>
 

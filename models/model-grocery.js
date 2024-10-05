@@ -22,9 +22,11 @@ export default mongoose.model('Grocery', new mongoose.Schema({
     listed: {
         type: Boolean,
         required: true,
+        default: true,
     },
     date: {
-        type: Date, 
+        type: Date,
+        required: true,
         default: Date.now,
     },
     image: String,

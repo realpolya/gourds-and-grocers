@@ -38,6 +38,17 @@ router.get('/new', async (req, res) => {
 // POST routes
 
 // POST new grocery item
+router.post('/', async (req, res) => {
+    
+    const user = await User.findById(req.session.user._id);
+
+    req.body.seller = user._id;
+
+    await Grocery.create(req.body)
+
+    res.render("templates/grocer/listings.ejs", { user });
+    
+})
 
 
 /* --------------------------------Exports--------------------------------*/
