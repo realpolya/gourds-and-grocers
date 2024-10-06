@@ -80,7 +80,25 @@ a {
     padding: 1rem;
 }
 
+
+
+.listing-image {
+    width: 13rem;
+    height: 13rem;
+    object-fit: cover;
+    border: orange 5px solid;
+    margin: 0 1rem;
+}
+
 /* IDs */
+
+#listings {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 #gg-header {
     display: flex;
     flex-direction: row;

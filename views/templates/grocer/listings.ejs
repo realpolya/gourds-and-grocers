@@ -11,8 +11,13 @@
 
             <div class="listing-card-div">
                 <h3><%= listing.name %></h3>
-                <h6><%= listing.price %></h6>
+                <h6>Price: $<%= listing.price %>.00</h6>
                 <p>Sold by <%= user.username %></p>
+                <ul>
+                    <li>Quantity available: <%= listing.quantity %></li>
+                    <li>From: <%= listing.from %></li>
+                    <li><%= listing.info %></li>
+                </ul>
             </div>
 
         <% }) %>
