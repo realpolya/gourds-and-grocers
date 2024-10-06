@@ -1,6 +1,22 @@
 <%- include('../../partials/layout.ejs') %>
 
-    <h2>Your Listings</h2>
+    <h2>Your Listings, <%= user.username %></h2>
+
+    <div id="listings">
+        <% listings.forEach((listing) => { %>
+
+            <div class="listing-image-div">
+                <img class="listing-image" alt="<%=listing.name%>" src="<%=listing.image%>" />
+            </div>
+
+            <div class="listing-card-div">
+                <h3><%= listing.name %></h3>
+                <h6><%= listing.price %></h6>
+                <p>Sold by <%= user.username %></p>
+            </div>
+
+        <% }) %>
+    </div>
     
     <%- include('../../partials/navigation/buttons.ejs') %>
 

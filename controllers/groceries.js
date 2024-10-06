@@ -25,8 +25,15 @@ const createGrocery = async (req, res) => {
 
 // GET view listings
 router.get('/', async (req, res) => {
-    const user = await User.findById(req.session.user._id);
-    res.render("templates/grocer/listings.ejs", { user });
+
+    try {
+        const user = await User.findById(req.session.user._id);
+        const listings = await Grocery.find({ seller: user._id });
+        res.render('templates/grocer/listings.ejs', { user, listings })
+    } catch (err) {
+        console.error(err);
+    }
+    
 })
 
 // GET add new grocery item
