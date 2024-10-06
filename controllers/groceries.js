@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
     } catch (err) {
         console.error(err);
     }
-    
+
 })
 
 // GET add new grocery item
@@ -47,13 +47,19 @@ router.get('/new', async (req, res) => {
 // POST new grocery item
 router.post('/', async (req, res) => {
     
-    const user = await User.findById(req.session.user._id);
+    try {
+        const user = await User.findById(req.session.user._id);
 
-    req.body.seller = user._id;
+        req.body.seller = user._id;
 
-    await Grocery.create(req.body)
+        await Grocery.create(req.body)
 
-    res.render("templates/grocer/listings.ejs", { user });
+        const listings = await Grocery.find({ seller: user._id });
+        
+        res.render('templates/grocer/listings.ejs', { user, listings })
+    } catch (err) {
+        console.error(err);
+    }
     
 })
 
