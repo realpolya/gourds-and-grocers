@@ -20,19 +20,10 @@
         <div id="listing-buttons">
             
             <% if (user) { %>
-            
-                <% if (user.account === "shopper") { %>
+                
+                <!-- grocer viewing his listings -->
+                <% if (grocer) { %>
                     
-                    <!-- specify quantity -->
-                    <form action="" method="GET">
-                        <button type="submit">Add <%= listing.name %> to cart</button>
-                    </form>
-                    <form action="/market" method="GET">
-                        <button type="submit">Back to market</button>
-                    </form>
-            
-                <% } else if (grocer) { %>
-
                     <form action="/groceries" method="GET">
                         <button type="submit">Go back to listings</button>
                     </form>
@@ -42,15 +33,28 @@
                     <form action="/groceries/<%=listing._id%>/inactive" method="POST">
                         <button type="submit">Archive <%= listing.name %></button>
                     </form>
+                
+                <!-- shopper viewing a listing -->
+                <% } else if (user.account === "shopper") { %>
 
+                    <!-- specify quantity -->
+                    <form action="" method="GET">
+                        <button type="submit">Add <%= listing.name %> to cart</button>
+                    </form>
+                    <form action="/market/signed-in" method="GET">
+                        <button type="submit">Back to market</button>
+                    </form>
+                
+                <!-- grocer viewing a listing without changing -->
                 <% } else { %>
 
-                    <form action="/market" method="GET">
+                    <form action="/market/signed-in" method="GET">
                         <button type="submit">Back to market</button>
                     </form>
 
                 <% } %>
             
+            <!-- user not signed in viewing items -->
             <% } else { %>
 
                 <form action="/market" method="GET">
@@ -58,8 +62,6 @@
                 </form>
 
             <% } %>
-
-            <!-- -->
 
             
         </div>

@@ -30,7 +30,8 @@ router.get('/', async (req, res) => {
         const listings = await Grocery.find({ seller: user._id, listed: true });
         let listing;
         let message;
-        res.render('templates/grocer/listings.ejs', { user, listings, message, listing })
+        const grocer = true;
+        res.render('templates/grocer/listings.ejs', { user, listings, message, listing, grocer })
     } catch (err) {
         console.error(err);
     }
@@ -107,8 +108,9 @@ router.post('/', async (req, res) => {
         const listings = await Grocery.find({ seller: user._id, listed: true });
 
         const message = "The following listing has been created:"
+        const grocer = true;
 
-        res.render('templates/grocer/listings.ejs', { user, listings, message, listing })
+        res.render('templates/grocer/listings.ejs', { user, listings, message, listing, grocer })
     } catch (err) {
         console.error(err);
     }
@@ -136,8 +138,9 @@ router.post('/:id/inactive', async (req, res) => {
         const listings = await Grocery.find({ seller: user._id, listed: true });
 
         const message = "The following listing has been archived:"
+        const grocer = true;
 
-        res.render('templates/grocer/listings.ejs', { user, listings, message, listing });
+        res.render('templates/grocer/listings.ejs', { user, listings, message, listing, grocer });
 
     } catch (err) {
         console.error(err);
@@ -167,8 +170,9 @@ router.post('/:id/relist', async (req, res) => {
 
         // message
         const message = "The following listing has been reactivated:"
+        const grocer = true;
 
-        res.render('templates/grocer/listings.ejs', { user, listings, message, listing });
+        res.render('templates/grocer/listings.ejs', { user, listings, message, listing, grocer });
 
     } catch (err) {
         console.error(err);

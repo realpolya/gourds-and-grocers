@@ -27,30 +27,41 @@
             <div id="listing-buttons">
             
                 <% if (user) { %>
-            
-                    <% if (user.account === "grocer") { %>
-                        <!-- need to add logic so you can only change your own listing -->
+                    
+                    <!-- grocer viewing his listings -->
+                    <% if (user.account === "grocer" && grocer) { %>
+                        <!-- need to add logic so you can only change your own listing
+                         this is done through the groceries route -->
                         <form action="/groceries/<%=listing._id%>/edit" method="GET">
                             <button type="submit">Edit <%= listing.name %></button>
                         </form>
                         <form action="/groceries/<%=listing._id%>" method="GET">
                             <button type="submit">View <%= listing.name %></button>
                         </form>
-                
+                    
+                    <!-- shopper viewing a listing -->
                     <% } else if (user.account === "shopper") { %>
                         
                         <form action="" method="GET">
                             <button type="submit">Add <%= listing.name %> to cart</button>
                         </form>
-                        <form action="/market/<%=listing._id%>" method="GET">
+                        <form action="/market/item/<%=listing._id%>/shop" method="GET">
                             <button type="submit">View <%= listing.name %></button>
                         </form>
+                    
+                    <!-- grocer viewing a listing without changing -->
+                    <% } else { %>
+                    
+                        <form action="/market/item/<%=listing._id%>/shop" method="GET">
+                            <button type="submit">View <%= listing.name %></button>
+                        </form>
+
+                    <% } %>
                 
-                    <%  } %>
-                
+                <!-- user not signed in viewing items -->
                 <% } else { %>
 
-                    <form action="/market/<%=listing._id%>" method="GET">
+                    <form action="/market/item/<%=listing._id%>" method="GET">
                         <button type="submit">View <%= listing.name %></button>
                     </form>
 
