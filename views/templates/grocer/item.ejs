@@ -2,7 +2,34 @@
 
     <h2><%= listing.name %></h2>
 
-    
+    <div id="one-item-card">
+        
+        <div class="one-item-image-div">
+            <img loading="eager" class="one-item-image" alt="<%=listing.name%>" src="<%=listing.image%>" />
+        </div>
+        
+        <div class="one-item-info-div">
+        
+            <h3><%= listing.name %></h3>
+            <h4>Price: $<%= listing.price %></h4>
+            <p>Sold by <%= user.username %></p>
+            <ul>
+                <li>Quantity available: <%= listing.quantity %></li>
+                <li>From: <%= listing.from %></li>
+                <li><%= listing.info %></li>
+            </ul>
+
+            <div id="listing-buttons">
+                <form action="/groceries" method="GET">
+                    <button type="submit">Go back to listings</button>
+                </form>
+                <form action="/" method="GET">
+                    <button type="submit">Edit <%= listing.name %></button>
+                </form>
+            </div>
+
+        </div>
+    </div>
 
     <%- include('../../partials/navigation/buttons.ejs') %>
 

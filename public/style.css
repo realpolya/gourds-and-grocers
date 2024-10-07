@@ -91,7 +91,7 @@ ul {
 
 
 
-.listing-image {
+.listing-image, .one-item-image {
     width: 13rem;
     height: 13rem;
     object-fit: cover;
