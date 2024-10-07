@@ -1,10 +1,6 @@
 <%- include('../../partials/layout.ejs') %>
 
-    <% if (message && listing) { %>
-        <p><%=message%> <%=listing.name%></p>
-    <% } %>
-
-    <h2>Your Listings, <%= user.username %></h2>
+    <h2>Your Archived Listings, <%= user.username %></h2>
 
     <div id="listings">
         <% listings.forEach((listing) => { %>
@@ -16,7 +12,7 @@
                 
                 <div class="listing-info-div">
                 
-                    <h3><%= listing.name %></h3>
+                    <h3><%= listing.name %> (archived)</h3>
                     <h4>Price: $<%= listing.price %></h4>
                     <p>Sold by <%= user.username %></p>
                     <ul>
@@ -26,11 +22,8 @@
                     </ul>
 
                     <div id="listing-buttons">
-                        <form action="/groceries/<%=listing._id%>" method="GET">
-                            <button type="submit">View <%= listing.name %></button>
-                        </form>
-                        <form action="/groceries/<%=listing._id%>/edit" method="GET">
-                            <button type="submit">Edit <%= listing.name %></button>
+                        <form action="/groceries/<%=listing._id%>/relist" method="POST">
+                            <button type="submit">Relist <%= listing.name %> listing</button>
                         </form>
                     </div>
 

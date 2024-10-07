@@ -30,6 +30,9 @@
                 <form action="/groceries/<%=listing._id%>/edit" method="GET">
                     <button type="submit">Edit <%= listing.name %></button>
                 </form>
+                <form action="/groceries/<%=listing._id%>/inactive" method="POST">
+                    <button type="submit">Archive <%= listing.name %></button>
+                </form>
             </div>
 
         </div>
