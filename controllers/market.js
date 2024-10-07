@@ -22,7 +22,9 @@ const app = express();
 router.get("/", async (req, res) => {
     const listings = await Grocery.find({ listed: true });
     const grocer = false;
-    res.render("templates/main/market", { listings, grocer });
+    // all of grocers
+    const allGrocers = await User.find({ account: 'grocer' });
+    res.render("templates/main/market", { listings, grocer, allGrocers });
 });
   
 
@@ -33,9 +35,12 @@ router.get("/item/:id", async (req, res) => {
 
     // try finding a user
     let user = false;
-    const grocer = false;
+    const grocer = false; // is grocer changing his items?
+    
+    // all of grocers
+    const allGrocers = await User.find({ account: 'grocer' });
 
-    res.render("templates/main/item", { listing, user, grocer });
+    res.render("templates/main/item", { listing, user, grocer, allGrocers });
 });
 
 
@@ -46,9 +51,11 @@ app.use(isSignedIn);
 // user view of market
 router.get("/signed-in", async (req, res) => {
     const listings = await Grocery.find({ listed: true });
-    const grocer = false;
+    const grocer = false; // is grocer changing his items?
     const user = await User.findById(req.session.user._id);
-    res.render("templates/main/market", { listings, grocer, user });
+    // all of grocers
+    const allGrocers = await User.find({ account: 'grocer' });
+    res.render("templates/main/market", { listings, grocer, user, allGrocers });
 });
 
 // user view page
@@ -60,7 +67,10 @@ router.get("/item/:id/shop", async (req, res) => {
     const user = await User.findById(req.session.user._id);
     const grocer = false;
 
-    res.render("templates/main/item", { listing, user, grocer });
+    // all of grocers
+    const allGrocers = await User.find({ account: 'grocer' });
+
+    res.render("templates/main/item", { listing, user, grocer, allGrocers });
 });
 
 /* --------------------------------Exports--------------------------------*/
