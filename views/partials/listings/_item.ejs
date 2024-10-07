@@ -1,0 +1,68 @@
+<h2><%= listing.name %></h2>
+
+<div id="one-item-card">
+    
+    <div class="one-item-image-div">
+        <img loading="eager" class="one-item-image" alt="<%=listing.name%>" src="<%=listing.image%>" />
+    </div>
+    
+    <div class="one-item-info-div">
+    
+        <h3><%= listing.name %></h3>
+        <h4>Price: $<%= listing.price %></h4>
+        <p>Sold by <%= listing.seller %></p>
+        <ul>
+            <li>Quantity available: <%= listing.quantity %></li>
+            <li>From: <%= listing.from %></li>
+            <li><%= listing.info %></li>
+        </ul>
+
+        <div id="listing-buttons">
+            
+            <% if (user) { %>
+            
+                <% if (user.account === "shopper") { %>
+                    
+                    <!-- specify quantity -->
+                    <form action="" method="GET">
+                        <button type="submit">Add <%= listing.name %> to cart</button>
+                    </form>
+                    <form action="/market" method="GET">
+                        <button type="submit">Back to market</button>
+                    </form>
+            
+                <% } else if (grocer) { %>
+
+                    <form action="/groceries" method="GET">
+                        <button type="submit">Go back to listings</button>
+                    </form>
+                    <form action="/groceries/<%=listing._id%>/edit" method="GET">
+                        <button type="submit">Edit <%= listing.name %></button>
+                    </form>
+                    <form action="/groceries/<%=listing._id%>/inactive" method="POST">
+                        <button type="submit">Archive <%= listing.name %></button>
+                    </form>
+
+                <% } else { %>
+
+                    <form action="/market" method="GET">
+                        <button type="submit">Back to market</button>
+                    </form>
+
+                <% } %>
+            
+            <% } else { %>
+
+                <form action="/market" method="GET">
+                    <button type="submit">Back to market</button>
+                </form>
+
+            <% } %>
+
+            <!-- -->
+
+            
+        </div>
+
+    </div>
+</div>

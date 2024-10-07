@@ -9,7 +9,7 @@
             <% if (user.account === "grocer") { %>
             
                 <div id="right-site-menu">
-                    <a href="/">Marketplace</a>
+                    <a href="/market/signed-in">Marketplace</a>
                     <a href="/grocer-home">Home</a>
                     <a href="/auth/sign-out">Sign Out</a>
                     <a href="https://github.com/realpolya">Creator</a>
@@ -18,7 +18,7 @@
             <% } else if (user.account === "shopper") { %>
                 
                 <div id="right-site-menu">
-                    <a href="/">Marketplace</a>
+                    <a href="/market/signed-in">Marketplace</a>
                     <a href="/shopper-home">Home</a>
                     <a href="/auth/sign-out">Sign Out</a>
                     <a href="https://github.com/realpolya">Creator</a>
@@ -29,7 +29,7 @@
         <% } else { %>
 
             <div id="right-site-menu">
-                <a href="/">Marketplace</a>
+                <a href="/market">Marketplace</a>
                 <a href="/auth/sign-in">Sign In</a>
                 <a href="/auth/sign-up">Sign Up</a>
                 <a href="https://github.com/realpolya">Creator</a>

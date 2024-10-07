@@ -13,7 +13,8 @@ const router = Router();
 
 const createGrocery = async (req, res) => {
     
-    res.render("templates/grocer/new-item.ejs");
+    const user = await User.findById(req.session.user._id);
+    res.render("templates/grocer/new-item.ejs", { user });
 
 }
 
@@ -50,10 +51,7 @@ router.get('/archived', async (req, res) => {
 });
 
 // GET add new grocery item
-router.get('/new', async (req, res) => {
-    const user = await User.findById(req.session.user._id);
-    res.render("templates/grocer/new-item.ejs", { user });
-})
+router.get('/new', createGrocery);
 
 // GET individual page for the item
 router.get('/:id', async (req, res) => {
@@ -61,10 +59,13 @@ router.get('/:id', async (req, res) => {
     const id = req.params.id;
 
     try {
+
         const user = await User.findById(req.session.user._id);
         const listing = await Grocery.findById(id);
         const changed = false;
-        res.render('templates/grocer/item.ejs', { user, listing, changed })
+        const grocer = true;
+        res.render('templates/grocer/item.ejs', { user, listing, changed, grocer })
+
     } catch (err) {
         console.error(err);
     }
@@ -189,8 +190,9 @@ router.put('/:id', async (req, res) => {
         await Grocery.findByIdAndUpdate(id, req.body);
         const listing = await Grocery.findById(id);
         const changed = true;
+        const grocer = true;
 
-        res.render('templates/grocer/item.ejs', { user, listing, changed });
+        res.render('templates/grocer/item.ejs', { user, listing, changed, grocer });
 
 
     } catch (err) {

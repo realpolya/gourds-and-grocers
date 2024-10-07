@@ -16,6 +16,7 @@ import Cart from "./models/model-cart.js";
 // controllers import
 import authController from "./controllers/auth.js";
 import groceriesController from "./controllers/groceries.js";
+import marketController from "./controllers/market.js";
 
 // middleware import
 import { isSignedIn } from "./middleware/is-signed-in.js";
@@ -75,18 +76,9 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
-// Marketplace view page
-app.get("/market", async (req, res) => {
-  const listings = await Grocery.find({ listed: true });
-  res.render("templates/main/market", { listings });
-});
-
-// Item view page
-
 
 app.use("/auth", authController);
-
-
+app.use("/market", marketController);
 
 
 // Signed in routes
@@ -103,9 +95,6 @@ app.get("/shopper-home", async (req, res) => {
   const user = await User.findById(req.session.user._id);
   res.render("templates/shopper/shopper-home", { user })
 });
-
-
-
 
 app.use("/groceries", groceriesController);
 

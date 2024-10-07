@@ -14,7 +14,7 @@
                 
                     <h3><%= listing.name %></h3>
                     <h4>Price: $<%= listing.price %></h4>
-                    <p>Sold by <%= user.username %></p>
+                    <p>Sold by <%= listing.seller %></p> <!-- change to name of seller -->
                     <ul>
                         <li>Quantity available: <%= listing.quantity %></li>
                         <li>From: <%= listing.from %></li>
@@ -25,10 +25,6 @@
             </div>
 
             <div id="listing-buttons">
-
-                <form action="/groceries/<%=listing._id%>" method="GET">
-                    <button type="submit">View <%= listing.name %></button>
-                </form>
             
                 <% if (user) { %>
             
@@ -37,17 +33,29 @@
                         <form action="/groceries/<%=listing._id%>/edit" method="GET">
                             <button type="submit">Edit <%= listing.name %></button>
                         </form>
+                        <form action="/groceries/<%=listing._id%>" method="GET">
+                            <button type="submit">View <%= listing.name %></button>
+                        </form>
                 
                     <% } else if (user.account === "shopper") { %>
                         
                         <form action="" method="GET">
                             <button type="submit">Add <%= listing.name %> to cart</button>
                         </form>
+                        <form action="/market/<%=listing._id%>" method="GET">
+                            <button type="submit">View <%= listing.name %></button>
+                        </form>
                 
                     <%  } %>
                 
+                <% } else { %>
+
+                    <form action="/market/<%=listing._id%>" method="GET">
+                        <button type="submit">View <%= listing.name %></button>
+                    </form>
+
                 <% } %>
-                
+
             </div>
 
         </div>
