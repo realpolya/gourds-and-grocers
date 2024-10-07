@@ -44,8 +44,11 @@ router.get('/', async (req, res) => {
 
         // TODO: display total
 
+        // message
+        let message;
+
         // render
-        res.render('templates/shopper/cart.ejs', { user, cart, itemArray })
+        res.render('templates/shopper/cart.ejs', { user, cart, itemArray, message })
     } catch (err) {
         console.error(err);
     }
@@ -59,18 +62,55 @@ router.get('/', async (req, res) => {
 router.post('/:id', async (req, res) => {
     
     try {
+        // retrieve item
+        const itemId = req.params.id;
+        const grocery = await Grocery.findById(itemId);
+
+        // TODO: compare to available quantity
+
+            // if above the quantity, do not put into cart
+        
+
+        // find user
         const user = await User.findById(req.session.user._id);
 
-        req.body.seller = user._id;
+        // find user's cart
+        const cartArray = await Cart.find({ owner: user._id }); // produces an array
+        const cart = cartArray[0];
+        console.log(cart);
 
-        const listing = await Grocery.create(req.body)
+        // push req.body to the applications array
+        req.body.id = itemId;
+        console.log(req.body);
+        console.log(cart.items);
+        cart.items.push(req.body);
 
-        const listings = await Grocery.find({ seller: user._id, listed: true });
+        // save changes to the database
+        await cart.save();
 
-        const message = "The following listing has been created:"
-        const grocer = { archived: false }; // is grocer dealing with archived items?
+        // message
+        let message = "The following item has been added to the cart:"
 
-        res.render('templates/grocer/listings.ejs', { user, listings, message, listing, grocer })
+        // create local array of objects
+        const itemArray = [];
+
+        // retrieve items from cart to render
+        cart.items.forEach( async (item) => {
+
+            const itemName = await Grocery.findById(item.id).name;
+            const quantity = item.quantity;
+            let cartItem = { itemName, quantity };
+            itemArray.push(cartItem); 
+
+        });
+
+        console.log(itemArray);
+
+        // TODO: display total
+
+        // render
+        res.render('templates/shopper/cart.ejs', { user, cart, itemArray, message });
+
     } catch (err) {
         console.error(err);
     }
