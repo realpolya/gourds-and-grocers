@@ -10,7 +10,7 @@
                     <img class="listing-image" alt="<%=listing.name%>" src="<%=listing.image%>" />
                 </div>
                 
-                <div class="listing-info-div">
+                <div>
                 
                     <h3><%= listing.name %></h3>
                     <h4>Price: $<%= listing.price %></h4>
@@ -24,8 +24,10 @@
                     <ul>
                         <li>Quantity available: <%= listing.quantity %></li>
                         <li>From: <%= listing.from %></li>
-                        <li><%= listing.info %></li>
                     </ul>
+                    <div class="listing-info-div">
+                        <%= listing.info %>
+                    </div>
                 </div>
 
             </div>
