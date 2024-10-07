@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
         const listings = await Grocery.find({ seller: user._id, listed: true });
         let listing;
         let message;
-        const grocer = true;
+        const grocer = { archived: false }; // is grocer dealing with archived items?
         res.render('templates/grocer/listings.ejs', { user, listings, message, listing, grocer })
     } catch (err) {
         console.error(err);
@@ -44,7 +44,8 @@ router.get('/archived', async (req, res) => {
     try {
         const user = await User.findById(req.session.user._id);
         const listings = await Grocery.find({ seller: user._id, listed: false });
-        res.render('templates/grocer/archived.ejs', { user, listings })
+        const grocer = { archived: true }; // is grocer dealing with archived items?
+        res.render('templates/grocer/archived.ejs', { user, listings, grocer })
     } catch (err) {
         console.error(err);
     }
@@ -64,7 +65,7 @@ router.get('/:id', async (req, res) => {
         const user = await User.findById(req.session.user._id);
         const listing = await Grocery.findById(id);
         const changed = false;
-        const grocer = true;
+        const grocer = { archived: false }; // is grocer dealing with archived items?
         res.render('templates/grocer/item.ejs', { user, listing, changed, grocer })
 
     } catch (err) {
@@ -108,7 +109,7 @@ router.post('/', async (req, res) => {
         const listings = await Grocery.find({ seller: user._id, listed: true });
 
         const message = "The following listing has been created:"
-        const grocer = true;
+        const grocer = { archived: false }; // is grocer dealing with archived items?
 
         res.render('templates/grocer/listings.ejs', { user, listings, message, listing, grocer })
     } catch (err) {
@@ -138,7 +139,7 @@ router.post('/:id/inactive', async (req, res) => {
         const listings = await Grocery.find({ seller: user._id, listed: true });
 
         const message = "The following listing has been archived:"
-        const grocer = true;
+        const grocer = { archived: false }; // is grocer looking at archived items?
 
         res.render('templates/grocer/listings.ejs', { user, listings, message, listing, grocer });
 
@@ -170,7 +171,7 @@ router.post('/:id/relist', async (req, res) => {
 
         // message
         const message = "The following listing has been reactivated:"
-        const grocer = true;
+        const grocer = { archived: false }; // is grocer dealing with archived items?
 
         res.render('templates/grocer/listings.ejs', { user, listings, message, listing, grocer });
 

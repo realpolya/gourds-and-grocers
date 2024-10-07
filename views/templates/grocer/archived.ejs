@@ -2,36 +2,8 @@
 
     <h2>Your Archived Listings, <%= user.username %></h2>
 
-    <div id="listings">
-        <% listings.forEach((listing) => { %>
-
-            <div class="listing-card">
-                <div class="listing-image-div">
-                    <img class="listing-image" alt="<%=listing.name%>" src="<%=listing.image%>" />
-                </div>
-                
-                <div class="listing-info-div">
-                
-                    <h3><%= listing.name %> (archived)</h3>
-                    <h4>Price: $<%= listing.price %></h4>
-                    <p>Sold by <%= user.username %></p>
-                    <ul>
-                        <li>Quantity available: <%= listing.quantity %></li>
-                        <li>From: <%= listing.from %></li>
-                        <li><%= listing.info %></li>
-                    </ul>
-
-                    <div id="listing-buttons">
-                        <form action="/groceries/<%=listing._id%>/relist" method="POST">
-                            <button type="submit">Relist <%= listing.name %> listing</button>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-
-        <% }) %>
-    </div>
+    <!-- show listings -->    
+    <%- include('../../partials/listings/_listings.ejs') %>
     
     <%- include('../../partials/navigation/_buttons.ejs') %>
 
