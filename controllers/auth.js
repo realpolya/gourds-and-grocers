@@ -1,6 +1,7 @@
 /* --------------------------------Imports--------------------------------*/
 import Router from "express";
 import User from "../models/model-user.js";
+import Cart from "../models/model-cart.js";
 import bcrypt from "bcrypt";
 
 /* --------------------------------Express & Mongoose--------------------------------*/
@@ -29,14 +30,21 @@ const signUp = async (req, res) => {
 
     const user = await User.create(req.body);
 
+    // create cart for a shopper
+    if (user.account === "shopper") {
+        console.log("Shopping cart being created");
+        const newCart = { owner: user._id, total: 0 };
+        await Cart.create(newCart);
+    }
+
     // console log users
     const allUsers = await User.find();
     console.log(allUsers);
 
     if (user.account === "grocer"){
-        res.render("templates/grocer/grocer-home.ejs", user)
+        res.render("templates/grocer/grocer-home.ejs", { user })
     } else {
-        res.render("templates/grocer/seller-home.ejs", user)
+        res.render("templates/shopper/shopper-home.ejs", { user })
     } 
 
 }

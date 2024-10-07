@@ -17,6 +17,7 @@ import Cart from "./models/model-cart.js";
 import authController from "./controllers/auth.js";
 import groceriesController from "./controllers/groceries.js";
 import marketController from "./controllers/market.js";
+import cartController from "./controllers/cart.js";
 
 // middleware import
 import { isSignedIn } from "./middleware/is-signed-in.js";
@@ -97,6 +98,7 @@ app.get("/shopper-home", async (req, res) => {
 });
 
 app.use("/groceries", groceriesController);
+app.use("/cart", cartController);
 
 // Listen
 app.listen(PORT, () => {
