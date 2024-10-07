@@ -22,11 +22,7 @@ router.get('/', async (req, res) => {
 
     try {
         const user = await User.findById(req.session.user._id);
-        const listings = await Grocery.find({ seller: user._id, listed: true });
-        let listing;
-        let message;
-        const grocer = { archived: false }; // is grocer dealing with archived items?
-        res.render('templates/grocer/listings.ejs', { user, listings, message, listing, grocer })
+        res.render('templates/shopper/cart.ejs', { user })
     } catch (err) {
         console.error(err);
     }
