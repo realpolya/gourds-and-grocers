@@ -76,6 +76,10 @@ app.get("/", (req, res) => {
 });
 
 // Marketplace view page
+app.get("/market", async (req, res) => {
+  const listings = await Grocery.find({ listed: true });
+  res.render("templates/main/market", { listings });
+});
 
 // Item view page
 
