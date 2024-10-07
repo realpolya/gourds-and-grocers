@@ -35,9 +35,9 @@ const signUp = async (req, res) => {
 
     if (user.account === "grocer"){
         res.render("templates/grocer/grocer-home.ejs", user)
-    }
-
-    res.send(`Thank you for signing up ${user.username}`)
+    } else {
+        res.render("templates/grocer/seller-home.ejs", user)
+    } 
 
 }
 

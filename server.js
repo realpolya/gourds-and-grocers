@@ -72,8 +72,6 @@ middleware();
 
 // home page
 app.get("/", (req, res) => {
-    // console.log(req.session.user);
-    // res.render("index", { user: req.session.user });
     res.render("index");
 });
 
@@ -86,6 +84,19 @@ app.use("/auth", authController);
 
 // Signed in routes
 app.use(isSignedIn);
+
+// grocer home
+app.get("/grocer-home", async (req, res) => {
+  const user = await User.findById(req.session.user._id);
+  res.render("templates/grocer/grocer-home", { user })
+});
+
+// shopper home
+app.get("/shopper-home", async (req, res) => {
+  const user = await User.findById(req.session.user._id);
+  res.render("templates/shopper/shopper-home", { user })
+});
+
 app.use("/groceries", groceriesController);
 
 // Listen
