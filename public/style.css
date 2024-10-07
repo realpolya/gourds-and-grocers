@@ -115,6 +115,12 @@ ul {
     flex-direction: row;
 }
 
+.one-item-image {
+    width: 15rem;
+    height: 15rem;
+    object-fit: cover;
+}
+
 /* IDs */
 
 #listings {
@@ -147,6 +153,11 @@ ul {
     display: flex;
     flex-direction: row;
     width: 90%;
+}
+
+#one-item-card {
+    display: flex;
+    flex-direction: row;
 }
 
 /* .griffy-regular {

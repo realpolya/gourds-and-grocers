@@ -14,11 +14,13 @@
                 
                     <h3><%= listing.name %></h3>
                     <h4>Price: $<%= listing.price %></h4>
-                    <% allGrocers.forEach((grocer) => { %>
-                        <% if (JSON.stringify(grocer._id) === JSON.stringify(listing.seller)) { %>
-                            <p>Sold by <%= grocer.username %></p>
-                        <% } %>
-                    <% }) %>
+                    <% if (!grocer) { %>
+                        <% allGrocers.forEach((grocer) => { %>
+                            <% if (JSON.stringify(grocer._id) === JSON.stringify(listing.seller)) { %>
+                                <p>Sold by <%= grocer.username %></p>
+                            <% } %>
+                        <% }) %>
+                    <% } %>
                     <ul>
                         <li>Quantity available: <%= listing.quantity %></li>
                         <li>From: <%= listing.from %></li>
