@@ -1,6 +1,26 @@
 <%- include('../../partials/layout.ejs') %>
 
     <h2>Here is your cart, <%= user.username %>!</h2>
+
+    <table>
+        <tr>
+            <td>Grocery item:</td>
+            <td>Quantity:</td>
+            <td>Price:</td> <!--TODO:-->
+        </tr>
+        <% itemArray.forEach((item) => { %>
+        <tr>
+            <td><%=item.name%></td>
+            <td><%=item.quantity%></td>
+            <td>Price:</td> <!--TODO:-->
+        </tr>
+        <% }) %>
+        <tr>
+            <td>Total:</td>
+            <td></td>
+            <td>Amount here</td> <!--TODO:-->
+        </tr>
+    </table>
     
     <%- include('../../partials/navigation/_buttons.ejs') %>
 

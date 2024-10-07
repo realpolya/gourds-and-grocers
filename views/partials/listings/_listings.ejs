@@ -62,9 +62,9 @@
                     <!-- shopper viewing a listing -->
                     <% } else if (user.account === "shopper") { %>
                         
-                        <form action="" method="GET">
+                        <!-- <form action="" method="GET">
                             <button type="submit">Add <%= listing.name %> to cart</button>
-                        </form>
+                        </form> -->
                         <form action="/market/item/<%=listing._id%>/shop" method="GET">
                             <button type="submit">View <%= listing.name %></button>
                         </form>
