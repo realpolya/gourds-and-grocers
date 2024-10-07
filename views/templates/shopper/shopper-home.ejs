@@ -1,6 +1,9 @@
 <%- include('../../partials/layout.ejs') %>
 
-    <h2>Welcome, shopper <%= user.username %></h2>
+    <div id="shopper-intro">
+        <p id="intro-emoji">🍂</p>
+        <h2>Welcome, shopper <%= user.username %>!</h2>
+    </div>
     
     <%- include('../../partials/navigation/_buttons.ejs') %>
 
