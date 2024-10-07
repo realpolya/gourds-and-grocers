@@ -55,6 +55,19 @@ router.get('/archived', async (req, res) => {
 // GET add new grocery item
 router.get('/new', createGrocery);
 
+// GET account view for the grocer
+router.get('/account', async (req, res) => {
+    try {
+        
+        const user = await User.findById(req.session.user._id);
+        
+        res.render('templates/grocer/account.ejs', { user });
+
+    } catch (err) {
+        console.error(err);
+    }
+})
+
 // GET individual page for the item
 router.get('/:id', async (req, res) => {
 

@@ -1,0 +1,26 @@
+<h2>The account of <%= user.username %></h2>
+
+<ul>
+
+    <% if (user.account === "grocer") { %>
+    
+        <li>Profits: <%= user.balance %></li>
+
+    <% } else if (user.account === "shopper") { %>
+            
+        <li>Current balance: <%= user.balance %></li>
+        
+        <form action="" method="GET">
+            <label for="balance">Amount to add:</label>
+            <input type="number" name="balance" id="balance" />
+            <button type="submit">Add to the balance</button>
+        </form>
+        
+    <%  } %>
+
+</ul>
+
+<form action="" method="GET">
+    <button type="submit" id="deactivate-btn">Deactivate Account</button>
+</form>
+

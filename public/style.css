@@ -160,6 +160,11 @@ ul {
     flex-direction: row;
 }
 
+#deactivate-btn {
+    background-color: darkred;
+    color: white;
+}
+
 /* .griffy-regular {
     font-family: "Griffy", system-ui;
     font-weight: 400;
