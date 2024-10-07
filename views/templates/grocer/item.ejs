@@ -1,5 +1,9 @@
 <%- include('../../partials/layout.ejs') %>
 
+    <% if (changed) { %>
+        <p><%= listing.name %> has been successfully changed</p>
+    <% } %>
+
     <h2><%= listing.name %></h2>
 
     <div id="one-item-card">

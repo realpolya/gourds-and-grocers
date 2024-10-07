@@ -25,7 +25,7 @@
                         <form action="/groceries/<%=listing._id%>" method="GET">
                             <button type="submit">View <%= listing.name %></button>
                         </form>
-                        <form action="/auth/sign-in" method="GET">
+                        <form action="/groceries/<%=listing._id%>/edit" method="GET">
                             <button type="submit">Edit <%= listing.name %></button>
                         </form>
                     </div>
