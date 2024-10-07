@@ -54,7 +54,7 @@ footer {
 
 button {
     margin: 1rem;
-    height: 3rem;
+    min-height: 3rem;
     min-width: 5rem;
     width: auto;
     border-radius: 1rem;
@@ -92,8 +92,8 @@ ul {
 
 
 .listing-image, .one-item-image {
-    width: 13rem;
-    height: 13rem;
+    width: 5rem;
+    height: 5rem;
     object-fit: cover;
     border: orange 5px solid;
     margin: 0 1rem;
@@ -103,18 +103,27 @@ ul {
     background-color: #E79069 ;
     margin: 1rem;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: 1rem;
     border-radius: 1rem;
+    width: 20rem;
+    min-height: 25rem;
+}
+
+.listing-card-top {
+    display: flex;
+    flex-direction: row;
 }
 
 /* IDs */
 
 #listings {
-    width: 95%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 #gg-header {
@@ -131,7 +140,13 @@ ul {
 #buttons {
     display: flex;
     flex-direction: row;
-    padding-bottom: 8rem;
+    padding-bottom: 3rem;
+}
+
+#listing-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
 }
 
 /* .griffy-regular {

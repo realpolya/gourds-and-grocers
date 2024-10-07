@@ -6,34 +6,37 @@
 
     <h2>Your Listings, <%= user.username %></h2>
 
+    <%- include('../../partials/navigation/buttons.ejs') %>
+
     <div id="listings">
         <% listings.forEach((listing) => { %>
 
             <div class="listing-card">
-                <div class="listing-image-div">
-                    <img class="listing-image" alt="<%=listing.name%>" src="<%=listing.image%>" />
-                </div>
-                
-                <div class="listing-info-div">
-                
-                    <h3><%= listing.name %></h3>
-                    <h4>Price: $<%= listing.price %></h4>
-                    <p>Sold by <%= user.username %></p>
-                    <ul>
-                        <li>Quantity available: <%= listing.quantity %></li>
-                        <li>From: <%= listing.from %></li>
-                        <li><%= listing.info %></li>
-                    </ul>
-
-                    <div id="listing-buttons">
-                        <form action="/groceries/<%=listing._id%>" method="GET">
-                            <button type="submit">View <%= listing.name %></button>
-                        </form>
-                        <form action="/groceries/<%=listing._id%>/edit" method="GET">
-                            <button type="submit">Edit <%= listing.name %></button>
-                        </form>
+                <div class="listing-card-top">
+                    <div class="listing-image-div">
+                        <img class="listing-image" alt="<%=listing.name%>" src="<%=listing.image%>" />
                     </div>
+                    
+                    <div class="listing-info-div">
+                    
+                        <h3><%= listing.name %></h3>
+                        <h4>Price: $<%= listing.price %></h4>
+                        <p>Sold by <%= user.username %></p>
+                        <ul>
+                            <li>Quantity available: <%= listing.quantity %></li>
+                            <li>From: <%= listing.from %></li>
+                            <li><%= listing.info %></li>
+                        </ul>
+                    </div>
+                </div>
 
+                <div id="listing-buttons">
+                    <form action="/groceries/<%=listing._id%>" method="GET">
+                        <button type="submit">View <%= listing.name %></button>
+                    </form>
+                    <form action="/groceries/<%=listing._id%>/edit" method="GET">
+                        <button type="submit">Edit <%= listing.name %></button>
+                    </form>
                 </div>
             </div>
 
