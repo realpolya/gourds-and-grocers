@@ -21,8 +21,31 @@ const router = Router();
 router.get('/', async (req, res) => {
 
     try {
+        // find user
         const user = await User.findById(req.session.user._id);
-        res.render('templates/shopper/cart.ejs', { user })
+
+        // find user's cart
+        const cart = await Cart.find({ owner: user._id });
+
+        // create local array of objects
+        const itemArray = [];
+
+        // retrieve items from cart to render
+        cart.items.forEach( async (item) => {
+
+            const itemName = await Grocery.findById(item.id).name;
+            const quantity = item.quantity;
+            let cartItem = { itemName, quantity };
+            itemArray.push(cartItem); 
+
+        });
+
+        console.log(itemArray);
+
+        // TODO: display total
+
+        // render
+        res.render('templates/shopper/cart.ejs', { user, cart, itemArray })
     } catch (err) {
         console.error(err);
     }
