@@ -1,0 +1,88 @@
+<%- include('../../partials/layout.ejs') %>
+
+    <h2>Edit <%= listing.name %></h2>
+
+    <form class="info-input" id="new-listing" action="/groceries/<%=listing._id%>?_method=PUT" method="POST">
+
+        <div class="form-div">
+            <label for="name">Listing title:</label>
+            <input type="text" name="name" id="name" value="<%= listing.name %>"/>
+        </div>
+
+        <div class="form-div">
+            <label for="price">Price:</label>
+            <input type="text" name="price" id="price" value="<%= listing.price %>" />
+        </div>
+
+        <div class="form-div">
+            <label for="quantity">Quantity:</label>
+            <input type="text" name="quantity" id="quantity" value="<%= listing.quantity %>"/>
+        </div>
+
+        <div class="form-div">
+            <label for="image">Link to the image:</label>
+            <input type="text" name="image" id="image" value="<%= listing.image %>"/>
+        </div>
+
+        <div class="form-div">
+            <label for="info">Description of item:</label>
+            <textarea type="text" name="info" id="info"><%= listing.info %></textarea>
+        </div>
+
+        <div class="form-div">
+            <label for="from">Where from:</label>
+            <input type="text" name="from" id="from" value="<%= listing.from %>" />
+        </div>
+
+        <div class="form-div">
+            <label for="resupplied">Restocked?</label>
+            <select id="resupplied" name="resupplied" required>
+                <option value="true"
+                <% if (listing.resupplied) {%>
+                    selected
+                <% } %>
+                >
+                    Yes
+                </option>
+                <option value="false"
+                <% if (!listing.resupplied) {%>
+                    selected
+                <% } %>
+                >
+                    No
+                </option>
+            </select>
+        </div>
+
+        <div class="form-div">
+            <label for="frequency">If yes, specify restocking frequency in days:</label>
+            <input type="text" name="frequency" id="frequency" value="<%= listing.frequency %>" />
+        </div>
+
+        <div class="form-div">
+            <label for="halloween">Special Halloween item?</label>
+            <select id="halloween" name="halloween" required>
+                <option value="true"
+                <% if (listing.halloween) {%>
+                    selected
+                <% } %>
+                >
+                    Yes
+                </option>
+                <option value="false"
+                <% if (!listing.halloween) {%>
+                    selected
+                <% } %>
+                >
+                    No
+                </option>
+            </select>
+        </div>
+
+        <div class="form-div"><button id="post-button" type="submit">Edit <%= listing.name %> Listing</button></div>
+
+    </form> 
+    
+    <%- include('../../partials/navigation/buttons.ejs') %>
+
+<%- include('../../partials/layout-end.ejs') %>

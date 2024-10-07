@@ -63,9 +63,11 @@ router.get('/:id/edit', async (req, res) => {
     const id = req.params.id;
 
     try {
+
         const user = await User.findById(req.session.user._id);
         const listing = await Grocery.findById(id);
         res.render('templates/grocer/edit.ejs', { user, listing })
+        
     } catch (err) {
         console.error(err);
     }

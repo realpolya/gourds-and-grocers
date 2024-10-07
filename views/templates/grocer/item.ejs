@@ -23,7 +23,7 @@
                 <form action="/groceries" method="GET">
                     <button type="submit">Go back to listings</button>
                 </form>
-                <form action="/" method="GET">
+                <form action="/groceries/<%=listing._id%>/edit" method="GET">
                     <button type="submit">Edit <%= listing.name %></button>
                 </form>
             </div>
