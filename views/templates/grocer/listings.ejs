@@ -13,7 +13,7 @@
                 <div class="listing-info-div">
                 
                     <h3><%= listing.name %></h3>
-                    <h6>Price: $<%= listing.price %></h6>
+                    <h4>Price: $<%= listing.price %></h4>
                     <p>Sold by <%= user.username %></p>
                     <ul>
                         <li>Quantity available: <%= listing.quantity %></li>
@@ -22,14 +22,14 @@
                     </ul>
 
                     <div id="listing-buttons">
-                        <form action="/auth/sign-in" method="GET">
+                        <form action="/groceries/<%=listing._id%>" method="GET">
                             <button type="submit">View <%= listing.name %></button>
                         </form>
                         <form action="/auth/sign-in" method="GET">
                             <button type="submit">Edit <%= listing.name %></button>
                         </form>
                     </div>
-                    
+
                 </div>
             </div>
 
