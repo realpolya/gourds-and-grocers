@@ -12,13 +12,14 @@ const router = Router();
 /* --------------------------------Functions--------------------------------*/
 
 // TODO: move cart display function here – remove it from POST route
+// can't have async within async
 const displayCart = async (cart) => {
     
     // get id keys from the array
-    const cartItemArray = cart[0].items.map((item) => [item.id, item.quantity])
+    const cartItemArray = cart[0].items.map(item => [item.id, item.quantity])
         
     // array of grocery ids
-    const idArray = cart[0].items.map((item) => item.id);
+    const idArray = cart[0].items.map(item => item.id);
 
     // find groceries corresponding to idArray
     const groceries = await Grocery.find({ _id: {$in: idArray} });
@@ -41,12 +42,13 @@ const displayCart = async (cart) => {
 };
 
 const calculateTotal = (itemArray) => {
-    // TODO: display total
+
     let totalAmount = itemArray.reduce((arg, item) => {
         return arg + item.total;
     }, 0)
     totalAmount = Math.trunc(totalAmount * 100) / 100;
     return totalAmount;
+
 }
 
 /* --------------------------------Routes--------------------------------*/
@@ -88,12 +90,7 @@ router.get('/', async (req, res) => {
         // const itemArray = displayCart(cart);
 
         // TODO: display total
-        let totalAmount = itemArray.reduce((arg, item) => {
-            return arg + item.total;
-        }, 0)
-        totalAmount = Math.trunc(totalAmount * 100) / 100
-
-        // const totalAmount = calculateTotal(itemArray);
+        let totalAmount = calculateTotal(itemArray);
 
         // message
         let message;
@@ -165,7 +162,7 @@ router.post('/:id', async (req, res) => {
         console.log("Done with loop");
         console.log(itemArray);
 
-        // TODO: display total
+        // display total
         let totalAmount = itemArray.reduce((arg, item) => {
             return arg + item.total;
         }, 0)
@@ -173,6 +170,8 @@ router.post('/:id', async (req, res) => {
 
         // render
         res.render('templates/shopper/cart.ejs', { user, cart, itemArray, message, totalAmount });
+
+        // TODO: render shopper home page instead ?
 
     } catch (err) {
         console.error(err);
