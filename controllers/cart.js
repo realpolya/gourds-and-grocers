@@ -281,12 +281,25 @@ router.put('/checkout', async (req, res) => {
         if (!checkArchived) {
             let message = "An item from your cart has been archived by the grocer. Please clear cart and start over.";
             return res.render('templates/shopper/error.ejs', { user, message });
-        }
+        };
+
+        // check if EVERY item in the cart has enough quantity (nested loops)
+        let enough = true;
+        cartObj.items.forEach(item => {
+            groceries.forEach(grocery => {
+                if (JSON.stringify(item.id) === JSON.stringify(grocery._id)
+                && item.quantity > grocery.quantity) {
+                    enough = false;
+                };
+            })
+        });
+        if (!enough) {
+            let message = "Oops! Someone bought an item you had in cart, and it is out of stock. Please clear cart and start over.";
+            return res.render('templates/shopper/error.ejs', { user, message });
+        };
 
         // FIXME: here
         res.send("Working on checkout");
-
-        // check if EVERY item in the cart has enough quantity
 
         // if all checks cleared..
 

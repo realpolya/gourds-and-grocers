@@ -1,4 +1,8 @@
-<h2><%= listing.name %></h2>
+<h2><%= listing.name %>
+    <% if (!listing.listed) { %>
+        (archived)
+    <% } %>
+</h2>
 
 <div id="one-item-card">
     
