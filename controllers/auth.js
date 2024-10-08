@@ -44,7 +44,8 @@ const signUp = async (req, res) => {
     if (user.account === "grocer"){
         return res.render("templates/grocer/grocer-home.ejs", { user })
     } else if (user.account === "shopper") {
-        return res.render("templates/shopper/shopper-home.ejs", { user })
+        let message;
+        return res.render("templates/shopper/shopper-home.ejs", { user, message })
     } 
 
 }
@@ -78,9 +79,8 @@ const signIn = async (req, res) => {
 
     } else {
         
-        res.render("templates/shopper/shopper-home.ejs", { user });
-
-        // res.send(`Thank you for signing in ${user.username}! Yay!`)
+        let message;
+        res.render("templates/shopper/shopper-home.ejs", { user, message });
 
     }    
 

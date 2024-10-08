@@ -20,7 +20,9 @@ const router = Router();
 // shopper home
 router.get("/", async (req, res) => {
     const user = await User.findById(req.session.user._id);
-    res.render("templates/shopper/shopper-home", { user })
+    let message;
+    let grocersPaid;
+    res.render("templates/shopper/shopper-home", { user, message, grocersPaid })
 });
 
 // GET account view

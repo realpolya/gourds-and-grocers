@@ -22,7 +22,7 @@ const getCartItems = (cart, groceries) => {
         if (match) {
             let total = +item[1] * +match.price;
             total = Math.trunc(total * 100) / 100;
-            return { id: match._id, name: match.name, quantity: item[1], price: match.price, total };
+            return { id: match._id, seller: match.seller, name: match.name, quantity: item[1], price: match.price, total };
         }
     }).filter(item => item !== undefined);
 
@@ -263,6 +263,8 @@ router.put('/checkout', async (req, res) => {
         const cart = await Cart.find({ owner: user._id }); // produces an array
         const cartObj = cart[0]; // get the cart object
 
+        /* =================== checking if order can be processed... ================= */
+
         // check if user has enough money
         if (cartObj.total > user.balance) {
             let message = "Your balance is not sufficient, please refill";
@@ -276,7 +278,7 @@ router.put('/checkout', async (req, res) => {
             // find groceries corresponding to idArray
             const groceries = await Grocery.find({ _id: {$in: idArray} });
 
-        // check if EVERY item is not archived – use every() method
+        // check if EVERY item is not archived
         let checkArchived = groceries.every(grocery => grocery.listed);
         if (!checkArchived) {
             let message = "An item from your cart has been archived by the grocer. Please clear cart and start over.";
@@ -298,58 +300,80 @@ router.put('/checkout', async (req, res) => {
             return res.render('templates/shopper/error.ejs', { user, message });
         };
 
-        // FIXME: here
-        res.send("Working on checkout");
-
-        // if all checks cleared..
+        /* =================== if all checks cleared... ================= */
 
         // push to past orders for user
+        let currentOrder = {
+            items: Array.from(cartObj.items),
+            total: cartObj.total
+        }
+        user.pastOrders.push(currentOrder);
 
         // change balance for user
+        user.balance = +user.balance - (+cartObj.total);
+        await user.save();
+
+        // change profts for EVERY grocer, create paid array
+        const grocersPaid = [];
+        const allGrocers = await User.find({ account: 'grocer' });
+        let itemArray = getCartItems(cart, groceries);
+        itemArray.forEach(item => {
+            allGrocers.forEach(grocer => {
+                if (JSON.stringify(item.seller) === JSON.stringify(grocer._id)) {
+                    
+                    // update grocer balance – do I need to save it every time to database?
+                    grocer.balance += +item.total;
+                    console.log(`${grocer.username} earned ${item.total} from this transaction!`)
+
+                    // push object into grocersPaid
+                    let grocerPaid = { name: grocer.username, paid: item.total };
+                    grocersPaid.push(grocerPaid);
+
+                };
+            });
+        });
+
+        // save allGrocers - use for-loop
+        for (let i = 0; i < allGrocers.length; i++) {
+            await allGrocers[i].save();
+        };
 
         // reduce item quantity for EVERY grocery in cart
+        itemArray.forEach(item => {
+            groceries.forEach(grocery => {
+                if (JSON.stringify(item.id) === JSON.stringify(grocery._id)) {
+                    // reduce quantity of each grocery
+                    grocery.quantity -= +item.quantity;
+                    console.log("Reducing quantity")
+                    console.log(`${grocery.name} has been reduced in quantity by ${item.quantity}`);
+                };
+            })
+        });
+
+        // save each grocery - use for-loop
+        for (let i = 0; i < groceries.length; i++) {
+            await groceries[i].save();
+        }
+
+        // clear cart
+        cartObj.items = [];
+        cartObj.total = 0;
+        await cartObj.save();
+        console.log("Now cart object is ", cartObj);
 
         // render shopper home with message
+        let message = "Checkout has been completed successfully!";
 
+        // FIXME: here
+        res.render("templates/shopper/shopper-home", { user, message, grocersPaid })
+
+        // res.send("Working on checkout");
 
     } catch (err) {
         console.error(err);
     }
 
-})
-
-
-// // PUT checkout cart
-// router.post('/:id/relist', async (req, res) => {
-
-//     const id = req.params.id;
-    
-//     try {
-//         const user = await User.findById(req.session.user._id);
-
-//         // find listing to archive
-//         const listing = await Grocery.findById(id);
-        
-//         // archive listing
-//         listing.listed = true;
-
-//         // save the listing
-//         await listing.save();
-
-//         // find all listings
-//         const listings = await Grocery.find({ seller: user._id, listed: true });
-
-//         // message
-//         const message = "The following listing has been reactivated:"
-//         const grocer = { archived: false }; // is grocer dealing with archived items?
-
-//         res.render('templates/grocer/listings.ejs', { user, listings, message, listing, grocer });
-
-//     } catch (err) {
-//         console.error(err);
-//     }
-    
-// });
+});
 
 
 /* --------------------------------Exports--------------------------------*/

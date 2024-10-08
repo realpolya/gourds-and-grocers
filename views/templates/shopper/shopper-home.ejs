@@ -1,5 +1,14 @@
 <%- include('../../partials/layout.ejs') %>
 
+    <% if (message) { %>
+        <p><%= message %></p>
+        <ul>
+            <% grocersPaid.forEach(grocer => { %>
+                <li>You paid grocer <%=grocer.name%> $<%=grocer.paid%>.</li>
+            <% }) %>
+        </ul>
+    <% } %>
+
     <div id="shopper-intro">
         <p id="intro-emoji">🍂</p>
         <h2>Welcome, shopper <%= user.username %>!</h2>
