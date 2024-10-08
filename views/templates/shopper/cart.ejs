@@ -4,18 +4,18 @@
 
     <table>
         <tr>
-            <td>Grocery item:</td>
-            <td>Quantity:</td>
-            <td>Price per unit:</td> <!--TODO:-->
-            <td>Total:</td> <!--TODO:-->
-            <td>Remove item?</td> <!--TODO:-->
+            <td class="td-header">Grocery item:</td>
+            <td class="td-header">Quantity:</td>
+            <td class="td-header">Price per unit:</td> <!--TODO:-->
+            <td class="td-header">Total:</td> <!--TODO:-->
+            <td class="td-header">Remove item?</td> <!--TODO:-->
         </tr>
         <% itemArray.forEach((item) => { %>
-        <tr>
-            <td><%=item.name%></td>
+        <tr> 
+            <td><a href="/market/item/<%=item.id%>/shop"><%=item.name%></a></td>
             <td><%=item.quantity%></td>
-            <td>Price per unit:</td> <!--TODO:-->
-            <td>Total:</td> <!--TODO:-->
+            <td>$<%=item.price%></td> <!--TODO:-->
+            <td>$<%=item.total%></td> <!--TODO:-->
             <td>Remove item?</td> <!--TODO:-->
         </tr>
         <% }) %>
@@ -23,7 +23,7 @@
             <td>Total:</td>
             <td></td>
             <td></td> <!--TODO:-->
-            <td>Amount here</td> <!--TODO:-->
+            <td>$<%=totalAmount%></td> <!--TODO:-->
             <td>Clear cart</td> <!--TODO:-->
         </tr>
     </table>

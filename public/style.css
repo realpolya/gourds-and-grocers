@@ -72,13 +72,26 @@ form {
 
 a {
     margin: 0 .5rem;
+    color: darkred;
 }
 
 ul {
     padding: 10px;
 }
 
+td {
+    border: 1px orangered solid;
+}
+
+td {
+    padding: .5rem;
+}
+
 /* Classes */
+
+.td-header {
+    background-color: #ffcdb5;
+}
 
 .info-input {
     background-color: #E79069;
