@@ -31,6 +31,7 @@ router.get('/account', async (req, res) => {
     try {
         // find user
         const user = await User.findById(req.session.user._id);
+        user.balance = Math.trunc(user.balance * 100) / 100;
 
         let message;
 
@@ -58,7 +59,8 @@ router.put('/account', async (req, res) => {
         const user = await User.findById(req.session.user._id);
 
         // update balance from before
-        user.balance = +user.balance + +req.body.balance;
+        user.balance += +req.body.balance;
+        user.balance = Math.trunc(user.balance * 100) / 100;
 
         // save the model
         await user.save();
@@ -78,7 +80,7 @@ router.put('/account', async (req, res) => {
     
 })
 
-// PUT deactivate account
+// TODO: PUT deactivate account
 router.put('/:id/remove', async (req, res) => {
 
     try {

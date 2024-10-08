@@ -6,6 +6,7 @@
             <% grocersPaid.forEach(grocer => { %>
                 <li>You paid grocer <%=grocer.name%> $<%=grocer.paid%>.</li>
             <% }) %>
+            <li>Your new balance is: $<%= user.balance %></li>
         </ul>
     <% } %>
 
