@@ -251,6 +251,29 @@ router.put('/:id/remove', async (req, res) => {
 
 })
 
+// PUT clear cart
+router.put('/clear', async (req, res) => {
+    
+    // find user
+    const user = await User.findById(req.session.user._id);
+
+    // find cart
+    const cart = await Cart.find({ owner: user._id }); // produces an array
+    const cartObj = cart[0]; // get the cart object
+
+    // clear cart
+    cartObj.items = [];
+    cartObj.total = 0;
+    await cartObj.save();
+
+    // message
+    let message = "Your cart has been cleared."
+
+    // render
+    res.render('templates/shopper/error.ejs', { user, message });
+
+})
+
 // PUT checkout cart
 router.put('/checkout', async (req, res) => {
 
@@ -364,10 +387,8 @@ router.put('/checkout', async (req, res) => {
         // render shopper home with message
         let message = "Checkout has been completed successfully!";
 
-        // FIXME: here
+        // render template
         res.render("templates/shopper/shopper-home", { user, message, grocersPaid })
-
-        // res.send("Working on checkout");
 
     } catch (err) {
         console.error(err);

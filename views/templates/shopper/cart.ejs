@@ -32,7 +32,11 @@
             <td></td>
             <td></td> 
             <td>$<%=totalAmount%></td> 
-            <td>Clear cart</td> <!--TODO:-->
+            <td>
+                <form action="/cart/clear?_method=PUT" method="POST">
+                    <button class="table-button" type="submit">Clear Cart</button>
+                </form>
+            </td>
         </tr>
     </table>
 
