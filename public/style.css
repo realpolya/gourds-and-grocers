@@ -156,6 +156,10 @@ td {
 
 /* IDs */
 
+#item-head {
+    text-wrap: wrap;
+}
+
 #shopper-intro, #grocer-intro {
     width: 50%;
     display: flex;
@@ -205,6 +209,10 @@ td {
 #one-item-card {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
+    background-color: #FFECE6;
+    border-radius: 2rem;
+    padding: 3rem;
 }
 
 #deactivate-btn {

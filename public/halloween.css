@@ -23,6 +23,15 @@ a, h1 {
     font-weight: 400;
     font-style: normal;
     font-size: 2rem;
+    color: orange;
+}
+
+#one-item-card {
+    background-color: #F6F0FF;
+}
+
+.listing-image, .one-item-image {
+    border: #624090 5px solid;
 }
 
 /* #gg-header {
