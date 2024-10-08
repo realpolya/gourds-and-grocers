@@ -211,7 +211,7 @@ router.put('/:id/remove', async (req, res) => {
         const cart = await Cart.find({ owner: user._id }); // produces an array
         const cartObj = cart[0]; // get the cart object
 
-        // look through items array – find item matchin the itemId TODO: might need JSON.stringify
+        // look through items array – find item matchin the itemId
         let objectToRemove = cartObj.items.filter(item => JSON.stringify(item.id) === JSON.stringify(itemId));
         let schemaIdRemove = objectToRemove[0]._id;
 
@@ -268,7 +268,7 @@ router.put('/checkout', async (req, res) => {
             let message = "Your balance is not sufficient, please refill";
             return res.render('templates/shopper/error.ejs', { user, message });
         }
-
+        // FIXME: here
         res.send("Working on checkout");
 
         // find all groceries that exist in the cart
