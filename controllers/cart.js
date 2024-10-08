@@ -120,10 +120,33 @@ router.post('/:id', async (req, res) => {
         // push req.body to the applications array
         req.body.id = itemId;
 
-        // TODO: look through cartObj items to see if there are 
-        // identical items there already
+        // is identical item in array?
+        let alreadyInCart = false;
+        cartObj.items.forEach(item => {
+            
+            if (JSON.stringify(item.id) === JSON.stringify(itemId)) {
+                
+                // update boolean
+                alreadyInCart = true;
+                console.log("In cart");
+                console.log(req.body);
 
-        cartObj.items.push(req.body);
+                // update quantity
+                req.body.quantity = +req.body.quantity + (+item.quantity);
+
+                // update item
+                item.set(req.body);
+
+            }
+
+        });
+
+        // if not in cart, create a new object
+        if (!alreadyInCart) {
+
+            cartObj.items.push(req.body);
+
+        };
 
         // save changes to the database
         await cartObj.save();
