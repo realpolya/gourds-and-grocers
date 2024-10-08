@@ -1,4 +1,9 @@
 <%- include('../../partials/layout.ejs') %>
+    
+    <!-- include message -->
+    <% if (message) { %>
+        <p class="info-msg"><%= message %></p>
+    <% } %>
 
     <%- include('../../partials/listings/_item.ejs') %>
     

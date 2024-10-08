@@ -40,7 +40,9 @@ router.get("/item/:id", async (req, res) => {
     // all of grocers
     const allGrocers = await User.find({ account: 'grocer' });
 
-    res.render("templates/main/item", { listing, user, grocer, allGrocers });
+    let message;
+
+    res.render("templates/main/item", { listing, user, grocer, allGrocers, message });
 });
 
 
@@ -70,7 +72,9 @@ router.get("/item/:id/shop", async (req, res) => {
     // all of grocers
     const allGrocers = await User.find({ account: 'grocer' });
 
-    res.render("templates/main/item", { listing, user, grocer, allGrocers });
+    let message;
+
+    res.render("templates/main/item", { listing, user, grocer, allGrocers, message });
 });
 
 /* --------------------------------Exports--------------------------------*/

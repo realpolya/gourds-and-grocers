@@ -10,27 +10,31 @@
         <tr>
             <td class="td-header">Grocery item:</td>
             <td class="td-header">Quantity:</td>
-            <td class="td-header">Price per unit:</td> <!--TODO:-->
-            <td class="td-header">Total:</td> <!--TODO:-->
+            <td class="td-header">Price per unit:</td>
+            <td class="td-header">Total:</td> 
             <td class="td-header">Remove item?</td> <!--TODO:-->
         </tr>
         <% itemArray.forEach((item) => { %>
         <tr> 
             <td><a href="/market/item/<%=item.id%>/shop"><%=item.name%></a></td>
             <td><%=item.quantity%></td>
-            <td>$<%=item.price%></td> <!--TODO:-->
-            <td>$<%=item.total%></td> <!--TODO:-->
-            <td>Remove item?</td> <!--TODO:-->
+            <td>$<%=item.price%></td> 
+            <td>$<%=item.total%></td> 
+            <td>Remove item?</td> <!--TODO: -->
         </tr>
         <% }) %>
         <tr>
             <td>Total:</td>
             <td></td>
-            <td></td> <!--TODO:-->
-            <td>$<%=totalAmount%></td> <!--TODO:-->
+            <td></td> 
+            <td>$<%=totalAmount%></td> 
             <td>Clear cart</td> <!--TODO:-->
         </tr>
     </table>
+
+    <form action="" method="POST">
+        <button type="submit">Check Out Cart</button>
+    </form>
     
     <%- include('../../partials/navigation/_buttons.ejs') %>
 

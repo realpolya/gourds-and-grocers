@@ -102,7 +102,9 @@ td {
     padding: 1rem;
 }
 
-
+.info-msg {
+    color: darkred;
+}
 
 .listing-image, .one-item-image {
     width: 5rem;

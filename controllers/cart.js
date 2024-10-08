@@ -89,15 +89,25 @@ router.post('/:id', async (req, res) => {
     try {
         // retrieve item
         const itemId = req.params.id;
-        const grocery = await Grocery.findById(itemId);
-
-        // TODO: compare to available quantity
-
-            // if above the quantity, do not put into cart
-        
+        const listing = await Grocery.findById(itemId);
 
         // find user
         const user = await User.findById(req.session.user._id);
+
+        // compare to available quantity
+        if (req.body.quantity > listing.quantity) {
+            
+            // if this condition is true, render the same page with error message
+            const grocer = false;
+            const allGrocers = await User.find({ account: 'grocer' });
+
+            // message
+            let message = "Error: requested quantity exceeds available quantity";
+
+            // res.render(`/market/item/${itemId}/shop`, { listing, user, grocer, allGrocers, message });
+            return res.render('templates/main/item', { listing, user, grocer, allGrocers, message });
+
+        };
 
         // find user's cart
         const cart = await Cart.find({ owner: user._id }); // produces an array
@@ -112,7 +122,7 @@ router.post('/:id', async (req, res) => {
 
         // message
         let message = "The following item has been added to the cart:"
-        let groceryName = grocery.name;
+        let groceryName = listing.name;
 
         /* ---------------- display cart below --------------------*/
         
