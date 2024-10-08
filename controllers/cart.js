@@ -267,13 +267,24 @@ router.put('/checkout', async (req, res) => {
         if (cartObj.total > user.balance) {
             let message = "Your balance is not sufficient, please refill";
             return res.render('templates/shopper/error.ejs', { user, message });
-        }
-        // FIXME: here
-        res.send("Working on checkout");
+        };
 
         // find all groceries that exist in the cart
+            // array of grocery ids
+            const idArray = cartObj.items.map((item) => item.id);
+
+            // find groceries corresponding to idArray
+            const groceries = await Grocery.find({ _id: {$in: idArray} });
 
         // check if EVERY item is not archived – use every() method
+        let checkArchived = groceries.every(grocery => grocery.listed);
+        if (!checkArchived) {
+            let message = "An item from your cart has been archived by the grocer. Please clear cart and start over.";
+            return res.render('templates/shopper/error.ejs', { user, message });
+        }
+
+        // FIXME: here
+        res.send("Working on checkout");
 
         // check if EVERY item in the cart has enough quantity
 

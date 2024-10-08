@@ -8,7 +8,12 @@
     
     <div class="one-item-info-div">
     
-        <h3><%= listing.name %></h3>
+        <h3>
+            <%= listing.name %>
+            <% if (!listing.listed) { %>
+                (archived)
+            <% } %>
+        </h3>
         <h4>Price: $<%= listing.price %></h4>
         <% if (!grocer) { %>
             <% allGrocers.forEach((grocer) => { %>
@@ -40,8 +45,8 @@
                         <button type="submit">Archive <%= listing.name %></button>
                     </form>
                 
-                <!-- shopper viewing a listing -->
-                <% } else if (user.account === "shopper") { %>
+                <!-- shopper viewing a listing, items must be listed -->
+                <% } else if (user.account === "shopper" && listing.listed) { %>
 
                     <!-- specify quantity -->
                     <form action="/cart/<%=listing._id%>" method="POST">
