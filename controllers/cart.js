@@ -11,11 +11,6 @@ const router = Router();
 
 /* --------------------------------Functions--------------------------------*/
 
-// TODO: create function that cycles through the array of objects, 
-// and if ids are identical, merge them into one entry in table
-
-
-
 const getCartItems = (cart, groceries) => {
     
     // get id keys from the array – double array
@@ -197,8 +192,7 @@ router.post('/:id', async (req, res) => {
     
 })
 
-// // PUT remove item from cart
-
+// PUT remove item from cart
 router.put('/:id/remove', async (req, res) => {
 
     try {

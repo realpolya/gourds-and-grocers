@@ -1,0 +1,11 @@
+<%- include('../../partials/layout.ejs') %>
+
+    <% if (message) { %>
+        <p class="info-msg"><%=message%> $<%=amount%></p>
+    <% } %>
+
+    <%- include('../../partials/account/_account.ejs') %>
+    
+    <%- include('../../partials/navigation/_buttons.ejs') %>
+
+<%- include('../../partials/layout-end.ejs') %>

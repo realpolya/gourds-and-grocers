@@ -8,13 +8,15 @@
 
     <% } else if (user.account === "shopper") { %>
             
-        <li>Current balance: <%= user.balance %></li>
+        <li>Current balance: $<%= user.balance %></li>
         
-        <form action="" method="GET">
-            <label for="balance">Amount to add:</label>
-            <input type="number" name="balance" id="balance" />
-            <button type="submit">Add to the balance</button>
-        </form>
+        <li>
+            <form action="/shop/account?_method=PUT" method="POST">
+                <label for="balance">Amount to add:</label>
+                <input type="number" name="balance" id="balance" placeholder="$" />
+                <button type="submit">Add to the balance</button>
+            </form>
+        </li>
         
     <%  } %>
 

@@ -18,6 +18,7 @@ import authController from "./controllers/auth.js";
 import groceriesController from "./controllers/groceries.js";
 import marketController from "./controllers/market.js";
 import cartController from "./controllers/cart.js";
+import shopController from "./controllers/shop.js";
 
 // middleware import
 import { isSignedIn } from "./middleware/is-signed-in.js";
@@ -91,14 +92,9 @@ app.get("/grocer-home", async (req, res) => {
   res.render("templates/grocer/grocer-home", { user })
 });
 
-// shopper home
-app.get("/shopper-home", async (req, res) => {
-  const user = await User.findById(req.session.user._id);
-  res.render("templates/shopper/shopper-home", { user })
-});
-
 app.use("/groceries", groceriesController);
 app.use("/cart", cartController);
+app.use("/shop", shopController);
 
 // Listen
 app.listen(PORT, () => {

@@ -42,9 +42,9 @@ const signUp = async (req, res) => {
     console.log(allUsers);
 
     if (user.account === "grocer"){
-        res.render("templates/grocer/grocer-home.ejs", { user })
-    } else {
-        res.render("templates/shopper/shopper-home.ejs", { user })
+        return res.render("templates/grocer/grocer-home.ejs", { user })
+    } else if (user.account === "shopper") {
+        return res.render("templates/shopper/shopper-home.ejs", { user })
     } 
 
 }
