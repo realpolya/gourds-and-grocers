@@ -108,7 +108,6 @@ router.post('/:id', async (req, res) => {
             // message
             let message = "Error: requested quantity exceeds available quantity";
 
-            // res.render(`/market/item/${itemId}/shop`, { listing, user, grocer, allGrocers, message });
             return res.render('templates/main/item', { listing, user, grocer, allGrocers, message });
 
         };
@@ -137,9 +136,25 @@ router.post('/:id', async (req, res) => {
                 // update item
                 item.set(req.body);
 
-            }
+            };
 
         });
+
+        // if the quantity exceeds, render message
+        if (alreadyInCart && req.body.quantity > listing.quantity) {
+            
+            console.log("Already in cart error quantity");
+
+            // if this condition is true, render the same page with error message
+            const grocer = false;
+            const allGrocers = await User.find({ account: 'grocer' });
+
+            // message
+            let message = "Error: item already in cart. Requested quantity exceeds available quantity";
+
+            return res.render('templates/main/item', { listing, user, grocer, allGrocers, message });
+
+        };
 
         // if not in cart, create a new object
         if (!alreadyInCart) {
