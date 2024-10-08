@@ -2,6 +2,10 @@
 
     <h2>Here is your cart, <%= user.username %>!</h2>
 
+    <% if (message) { %>
+        <p><%=message%> <%=groceryName%></p>
+    <% } %>
+
     <table>
         <tr>
             <td class="td-header">Grocery item:</td>

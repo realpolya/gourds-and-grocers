@@ -43,6 +43,7 @@ const calculateTotal = (itemArray) => {
 /* --------------------------------Routes--------------------------------*/
 
 // GET routes
+
 // GET cart view
 router.get('/', async (req, res) => {
 
@@ -111,6 +112,7 @@ router.post('/:id', async (req, res) => {
 
         // message
         let message = "The following item has been added to the cart:"
+        let groceryName = grocery.name;
 
         /* ---------------- display cart below --------------------*/
         
@@ -129,7 +131,7 @@ router.post('/:id', async (req, res) => {
         /* ---------------- display cart above --------------------*/
 
         // render
-        res.render('templates/shopper/cart.ejs', { user, cart, itemArray, message, totalAmount });
+        res.render('templates/shopper/cart.ejs', { user, cart, itemArray, message, groceryName, totalAmount });
 
     } catch (err) {
 
