@@ -137,8 +137,7 @@ td {
     height: 6rem;
     line-height: 1.5rem;
     overflow-y: hidden;
-    text-overflow: ellipsis; /* ellipsis is not working */
-    background-color: pink;
+    text-overflow: ellipsis; /* FIXME: ellipsis is not working */
 }
 
 .one-item-image {
@@ -180,6 +179,7 @@ td {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    padding-bottom: 5rem;
 }
 
 #gg-header {
@@ -196,7 +196,7 @@ td {
 #buttons {
     display: flex;
     flex-direction: row;
-    padding-bottom: 3rem;
+    padding-bottom: 1rem;
 }
 
 #listing-buttons {
