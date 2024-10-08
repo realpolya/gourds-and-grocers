@@ -11,26 +11,21 @@ const router = Router();
 
 /* --------------------------------Functions--------------------------------*/
 
-// TODO: move cart display function here – remove it from POST route
-// can't have async within async
-const displayCart = (cart, groceries) => {
+
+const getCartItems = (cart, groceries) => {
     
     // get id keys from the array
     const cartItemArray = cart[0].items.map(item => [item.id, item.quantity])
         
-    // create itemArray of names and quantities
+    // create itemArray of grocery names and quantities
     const itemArray = cartItemArray.map((item) => {
         const match = groceries.find(grocery => JSON.stringify(grocery._id) === JSON.stringify(item[0]));
         if (match) {
-            console.log("found a match")
-            console.log("item is ", item);
             let total = +item[1] * +match.price;
+            total = Math.trunc(total * 100) / 100;
             return { id: match._id, name: match.name, quantity: item[1], price: match.price, total };
         }
     }).filter(item => item !== undefined);
-
-    console.log("Done with loop");
-    console.log(itemArray);
 
     return itemArray;
 };
@@ -64,40 +59,22 @@ router.get('/', async (req, res) => {
         // find groceries corresponding to idArray
         const groceries = await Grocery.find({ _id: {$in: idArray} });
 
-        /* OLD
+        // array of objects (each object represents cart item)
+        const itemArray = getCartItems(cart, groceries);
 
-        // get id keys from the array
-        const cartItemArray = cart[0].items.map((item) => [item.id, item.quantity])
-
-        // create itemArray of names and quantities
-        const itemArray = cartItemArray.map((item) => {
-            const match = groceries.find(grocery => JSON.stringify(grocery._id) === JSON.stringify(item[0]));
-            if (match) {
-                console.log("found a match")
-                console.log("item is ", item);
-                let total = +item[1] * +match.price;
-                return { id: match._id, name: match.name, quantity: item[1], price: match.price, total };
-            }
-        }).filter(item => item !== undefined); */
-
-        /* TRY NEW BELOW */
-
-        const itemArray = displayCart(cart, groceries);
-
-        /* TRY NEW ABOVE */
-
-        // const itemArray = displayCart(cart);
-
-        // TODO: display total
+        // display total
         let totalAmount = calculateTotal(itemArray);
 
         // message
         let message;
 
         // render
-        res.render('templates/shopper/cart.ejs', { user, cart, itemArray, message, totalAmount })
+        res.render('templates/shopper/cart.ejs', { user, cart, itemArray, message, totalAmount });
+
     } catch (err) {
+
         console.error(err);
+
     }
 
 });
@@ -122,58 +99,42 @@ router.post('/:id', async (req, res) => {
         const user = await User.findById(req.session.user._id);
 
         // find user's cart
-        const cartArray = await Cart.find({ owner: user._id }); // produces an array
-        const cart = cartArray[0];
-        console.log(cart);
+        const cart = await Cart.find({ owner: user._id }); // produces an array
+        const cartObj = cart[0]; // get the cart object
 
         // push req.body to the applications array
         req.body.id = itemId;
-        console.log(req.body);
-        console.log(cart.items);
-        cart.items.push(req.body);
+        cartObj.items.push(req.body);
 
         // save changes to the database
-        await cart.save();
+        await cartObj.save();
 
         // message
         let message = "The following item has been added to the cart:"
 
-        // get id keys from the array
-        const cartItemArray = cart.items.map((item) => [item.id, item.quantity])
+        /* ---------------- display cart below --------------------*/
         
         // array of grocery ids
-        const idArray = cart.items.map((item) => item.id);
+        const idArray = cart[0].items.map((item) => item.id);
 
         // find groceries corresponding to idArray
         const groceries = await Grocery.find({ _id: {$in: idArray} });
 
-        // create itemArray of names and quantities
-        const itemArray = cartItemArray.map((item) => {
-            const match = groceries.find(grocery => JSON.stringify(grocery._id) === JSON.stringify(item[0]));
-            if (match) {
-                console.log("found a match")
-                console.log("item is ", item);
-                let total = +item[1] * +match.price;
-                return { name: match.name, quantity: item[1], price: match.price, total };
-            }
-        }).filter(item => item !== undefined);
-
-        console.log("Done with loop");
-        console.log(itemArray);
+        // array of objects (each object represents cart item)
+        const itemArray = getCartItems(cart, groceries);
 
         // display total
-        let totalAmount = itemArray.reduce((arg, item) => {
-            return arg + item.total;
-        }, 0)
-        totalAmount = Math.trunc(totalAmount * 100) / 100;
+        let totalAmount = calculateTotal(itemArray);
+
+        /* ---------------- display cart above --------------------*/
 
         // render
         res.render('templates/shopper/cart.ejs', { user, cart, itemArray, message, totalAmount });
 
-        // TODO: render shopper home page instead ?
-
     } catch (err) {
+
         console.error(err);
+
     }
     
 })
