@@ -82,6 +82,7 @@ router.get('/', async (req, res) => {
 
 
 // POST routes
+
 // POST new grocery item to cart
 router.post('/:id', async (req, res) => {
     
@@ -178,6 +179,8 @@ router.post('/:id', async (req, res) => {
 
         // display total
         let totalAmount = calculateTotal(itemArray);
+        cartObj.total = +totalAmount;
+        await cartObj.save();
 
         /* ---------------- display cart above --------------------*/
 
@@ -233,6 +236,8 @@ router.put('/:id/remove', async (req, res) => {
 
         // display total
         let totalAmount = calculateTotal(itemArray);
+        cartObj.total = +totalAmount;
+        await cartObj.save();
 
         /* ---------------- display cart above --------------------*/
 
@@ -245,35 +250,50 @@ router.put('/:id/remove', async (req, res) => {
     }
 
 })
-// router.post('/:id/inactive', async (req, res) => {
 
-//     const id = req.params.id;
-    
-//     try {
-//         const user = await User.findById(req.session.user._id);
+// PUT checkout cart
+router.put('/checkout', async (req, res) => {
 
-//         // find listing to archive
-//         const listing = await Grocery.findById(id);
-        
-//         // archive listing
-//         listing.listed = false;
+    try {
 
-//         // save the listing
-//         await listing.save();
+        // find user
+        const user = await User.findById(req.session.user._id);
 
-//         // find all listings
-//         const listings = await Grocery.find({ seller: user._id, listed: true });
+        // find cart
+        const cart = await Cart.find({ owner: user._id }); // produces an array
+        const cartObj = cart[0]; // get the cart object
 
-//         const message = "The following listing has been archived:"
-//         const grocer = { archived: false }; // is grocer looking at archived items?
+        // check if user has enough money
+        if (cartObj.total > user.balance) {
+            let message = "Your balance is not sufficient, please refill";
+            return res.render('templates/shopper/error.ejs', { user, message });
+        }
 
-//         res.render('templates/grocer/listings.ejs', { user, listings, message, listing, grocer });
+        res.send("Working on checkout");
 
-//     } catch (err) {
-//         console.error(err);
-//     }
-    
-// })
+        // find all groceries that exist in the cart
+
+        // check if EVERY item is not archived – use every() method
+
+        // check if EVERY item in the cart has enough quantity
+
+        // if all checks cleared..
+
+        // push to past orders for user
+
+        // change balance for user
+
+        // reduce item quantity for EVERY grocery in cart
+
+        // render shopper home with message
+
+
+    } catch (err) {
+        console.error(err);
+    }
+
+})
+
 
 // // PUT checkout cart
 // router.post('/:id/relist', async (req, res) => {
