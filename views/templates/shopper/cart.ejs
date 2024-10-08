@@ -3,7 +3,7 @@
     <h2>Here is your cart, <%= user.username %>!</h2>
 
     <% if (message) { %>
-        <p><%=message%> <%=groceryName%></p>
+        <p class="info-msg"><%=message%> <%=groceryName%></p>
     <% } %>
 
     <table>
@@ -20,7 +20,11 @@
             <td><%=item.quantity%></td>
             <td>$<%=item.price%></td> 
             <td>$<%=item.total%></td> 
-            <td>Remove item?</td> <!--TODO: -->
+            <td>
+                <form action="/cart/<%=item.id%>/remove?_method=PUT" method="POST">
+                    <button class="table-button" type="submit">Remove <%=item.name%></button>
+                </form>
+            </td> <!--TODO: -->
         </tr>
         <% }) %>
         <tr>

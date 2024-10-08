@@ -6,6 +6,11 @@ const orderSchema = new mongoose.Schema({
         default: []
     },
     total: Number, 
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now,
+    }
   });
 
 export default mongoose.model('User', new mongoose.Schema({

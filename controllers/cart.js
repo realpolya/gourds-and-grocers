@@ -11,10 +11,14 @@ const router = Router();
 
 /* --------------------------------Functions--------------------------------*/
 
+// TODO: create function that cycles through the array of objects, 
+// and if ids are identical, merge them into one entry in table
+
+
 
 const getCartItems = (cart, groceries) => {
     
-    // get id keys from the array
+    // get id keys from the array – double array
     const cartItemArray = cart[0].items.map(item => [item.id, item.quantity])
         
     // create itemArray of grocery names and quantities
@@ -115,6 +119,10 @@ router.post('/:id', async (req, res) => {
 
         // push req.body to the applications array
         req.body.id = itemId;
+
+        // TODO: look through cartObj items to see if there are 
+        // identical items there already
+
         cartObj.items.push(req.body);
 
         // save changes to the database
@@ -152,6 +160,59 @@ router.post('/:id', async (req, res) => {
 })
 
 // // PUT remove item from cart
+
+router.put('/:id/remove', async (req, res) => {
+
+    try {
+        
+        // retrieve item
+        const itemId = req.params.id;
+        const listing = await Grocery.findById(itemId);
+
+        // find user
+        const user = await User.findById(req.session.user._id);
+
+        // find cart
+        const cart = await Cart.find({ owner: user._id }); // produces an array
+        const cartObj = cart[0]; // get the cart object
+
+        // look through items array – find item matchin the itemId TODO: might need JSON.stringify
+        let objectToRemove = cartObj.items.filter(item => JSON.stringify(item.id) === JSON.stringify(itemId));
+        let schemaIdRemove = objectToRemove[0]._id;
+
+        // remove in array and save mongoose object
+        await cartObj.items.id(schemaIdRemove).deleteOne();
+        await cartObj.save();
+
+        // message
+        let message = "The following item has been removed from the cart:"
+        let groceryName = listing.name;
+
+        /* ---------------- display cart below --------------------*/
+        
+        // array of grocery ids
+        const idArray = cart[0].items.map((item) => item.id);
+
+        // find groceries corresponding to idArray
+        const groceries = await Grocery.find({ _id: {$in: idArray} });
+
+        // array of objects (each object represents cart item)
+        const itemArray = getCartItems(cart, groceries);
+
+        // display total
+        let totalAmount = calculateTotal(itemArray);
+
+        /* ---------------- display cart above --------------------*/
+
+        // render
+        res.render('templates/shopper/cart.ejs', { user, cart, itemArray, message, groceryName, totalAmount });
+
+
+    } catch (err) {
+        console.error(err);
+    }
+
+})
 // router.post('/:id/inactive', async (req, res) => {
 
 //     const id = req.params.id;
