@@ -1,0 +1,30 @@
+body, main {
+    background-color: #9583B1;
+};
+
+header, footer {
+    background-color: #624090;
+}
+
+#header-id, #footer-id {
+    background-color: #624090;
+}
+
+a, h1 {
+    color: white;
+}
+
+#footer-id {
+    color: white;
+}
+
+.halloween-font {
+    font-family: "Griffy", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2rem;
+}
+
+/* #gg-header {
+    background-color: #624090;
+} */
