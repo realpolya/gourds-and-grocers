@@ -13,17 +13,11 @@ const router = Router();
 
 // TODO: move cart display function here – remove it from POST route
 // can't have async within async
-const displayCart = async (cart) => {
+const displayCart = (cart, groceries) => {
     
     // get id keys from the array
     const cartItemArray = cart[0].items.map(item => [item.id, item.quantity])
         
-    // array of grocery ids
-    const idArray = cart[0].items.map(item => item.id);
-
-    // find groceries corresponding to idArray
-    const groceries = await Grocery.find({ _id: {$in: idArray} });
-
     // create itemArray of names and quantities
     const itemArray = cartItemArray.map((item) => {
         const match = groceries.find(grocery => JSON.stringify(grocery._id) === JSON.stringify(item[0]));
@@ -64,14 +58,16 @@ router.get('/', async (req, res) => {
         // find user's cart
         const cart = await Cart.find({ owner: user._id });
 
-        // get id keys from the array
-        const cartItemArray = cart[0].items.map((item) => [item.id, item.quantity])
-        
         // array of grocery ids
         const idArray = cart[0].items.map((item) => item.id);
 
         // find groceries corresponding to idArray
         const groceries = await Grocery.find({ _id: {$in: idArray} });
+
+        /* OLD
+
+        // get id keys from the array
+        const cartItemArray = cart[0].items.map((item) => [item.id, item.quantity])
 
         // create itemArray of names and quantities
         const itemArray = cartItemArray.map((item) => {
@@ -82,10 +78,13 @@ router.get('/', async (req, res) => {
                 let total = +item[1] * +match.price;
                 return { id: match._id, name: match.name, quantity: item[1], price: match.price, total };
             }
-        }).filter(item => item !== undefined);
+        }).filter(item => item !== undefined); */
 
-        console.log("Done with loop");
-        console.log(itemArray);
+        /* TRY NEW BELOW */
+
+        const itemArray = displayCart(cart, groceries);
+
+        /* TRY NEW ABOVE */
 
         // const itemArray = displayCart(cart);
 
