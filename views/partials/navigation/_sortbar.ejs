@@ -1,5 +1,6 @@
 <div id="sort-bar">
     <div id="sort-filter">
+
         <form 
             <% if (user) { %>
                 action="/market/signed-in/sort" 
@@ -17,6 +18,7 @@
             </select>
             <button class="sort-bar-button" type="submit">Sort</button>
         </form>
+        
         <form 
             <% if (user) { %>
                 action="/market/signed-in/filter" 
@@ -25,18 +27,29 @@
             <% } %>
             method="GET" class="sort-bar-form">
             <select id="filter-select" name="filter" required>
+
                 <option value="" disabled selected>---Filter by Grocer---</option>
                 <% allGrocers.forEach(grocer => { %>
                     <option value="<%=grocer._id%>">Grocer <%=grocer.username%></option>
                 <% }) %>
+
             </select>
             <button class="sort-bar-button" type="submit">Filter</button>
         </form>
+
     </div>
     <div id="search">
-        <form action="" method="" class="sort-bar-form">
+
+        <form 
+        <% if (user) { %>
+            action="/market/signed-in/search" 
+        <% } else { %>
+            action="/market/search" 
+        <% } %>
+        method="GET" class="sort-bar-form">
             <input type="text" placeholder="e.g. pumpkin" name="search">
             <button class="sort-bar-button" type="submit">Search</button>
         </form>
+
     </div>
 </div>

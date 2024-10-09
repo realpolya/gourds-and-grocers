@@ -51,11 +51,20 @@ const sortList = async (sortValue) => {
 
 const filterList = async (filterValue) => {
     
-    console.log(filterValue);
-    const listings = await Grocery.find({ seller: filterValue });
-    console.log("Listings are ", listings);
+    const listings = await Grocery.find({ seller: filterValue, listed: true });
     return listings;
 
+}
+
+const searchList = async (searchValue) => {
+
+    let listings = await Grocery.find({ listed: true });
+    // find listings based on the search value
+    listings = listings.filter(listing => {
+        return listing.name.toLowerCase().includes(searchValue.toLowerCase());
+    });
+
+    return listings;
 }
 
 /* --------------------------------Routes--------------------------------*/
@@ -134,6 +143,35 @@ router.get("/filter", async (req, res) => {
 
         // define listings based on the value
         const listings = await filterList(filterValue);
+
+        /* ----------------- finish sort/filter/search ------------------- */
+
+        res.render("templates/main/market", { user, listings, grocer, allGrocers, halloween });
+
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+
+// GET route for search (signed out version)
+router.get("/search", async (req, res) => {
+
+    try {
+
+        let user;
+        let halloween; // value to load css stylesheet
+        const grocer = false;
+
+        // all of grocers
+        const allGrocers = await User.find({ account: 'grocer' });
+
+        /* ----------------- deal with sort/filter/search ------------------- */
+        // retrieve filter value
+        const searchValue = req.query.search;
+
+        // define listings based on the value
+        const listings = await searchList(searchValue);
 
         /* ----------------- finish sort/filter/search ------------------- */
 
@@ -226,6 +264,34 @@ router.get("/signed-in/filter", async (req, res) => {
 
         // define listings based on the value
         const listings = await filterList(filterValue);
+
+        /* ----------------- finish sort/filter/search ------------------- */
+
+        res.render("templates/main/market", { user, listings, grocer, allGrocers, halloween });
+
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+// GET route for search (signed IN version)
+router.get("/signed-in/search", async (req, res) => {
+
+    try {
+
+        const user = await User.findById(req.session.user._id);
+        let halloween; // value to load css stylesheet
+        const grocer = false;
+
+        // all of grocers
+        const allGrocers = await User.find({ account: 'grocer' });
+
+        /* ----------------- deal with sort/filter/search ------------------- */
+        // retrieve filter value
+        const searchValue = req.query.search;
+
+        // define listings based on the value
+        const listings = await searchList(searchValue);
 
         /* ----------------- finish sort/filter/search ------------------- */
 
