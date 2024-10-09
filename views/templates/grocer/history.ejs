@@ -8,7 +8,29 @@
         <% sales.forEach(sale => { %>
 
             <div class="order">
-                <h3>Sale from <%=sale.date%> for $<%=sale.total%></h3>
+                <h3>Sale from <%=sale.date%></h3>
+                <table>
+                    <tr>
+                        <td class="td-header">Sale total:</td>
+                        <td>$<%=sale.total%></td>
+                    </tr>
+                    <tr>
+                        <td class="td-header">Item sold:</td>
+                        <td><%=sale.name%></td>
+                    </tr>
+                    <tr>
+                        <td class="td-header">Quantity sold:</td>
+                        <td><%=sale.quantity%></td>
+                    </tr>
+                    <tr>
+                        <td class="td-header">Order id:</td>
+                        <td><%=sale.orderId%></td>
+                    </tr>
+                    <tr>
+                        <td class="td-header">Buyer:</td>
+                        <td><%=sale.buyer%></td>
+                    </tr>
+                </table>
             </div>
 
         <% }) %>

@@ -92,11 +92,12 @@ router.get('/history', async (req, res) => {
                     if (JSON.stringify(item.seller) === JSON.stringify(user._id)) {
                         
                         // if yes, great! push new object into the success array with the name of the shopper
-                        const copy = Object.assign({}, item);
-                        copy.buyer = shopper.username;
-                        copy.buyerId = shopper._id;
-                        copy.date = order.date;
-                        sales.push(copy);
+                        const sale = Object.assign({}, item);
+                        sale.buyer = shopper.username;
+                        sale.buyerId = shopper._id;
+                        sale.date = order.date;
+                        sale.orderId = order._id;
+                        sales.push(sale);
 
                     }
                 })
