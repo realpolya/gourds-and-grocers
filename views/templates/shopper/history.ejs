@@ -1,0 +1,44 @@
+<%- include('../../partials/layout.ejs') %>
+
+    <h2>Order history for <%= user.username %></h2>
+
+    <div id="past-orders-tables">
+        <% pastOrders.forEach(order => { %>
+
+            <div class="order">
+                <h3>Order from <%=order.date%> for $<%=order.total%></h3>
+                <table>
+                    <tr>
+                        <td class="td-header">Item name</td>
+                        <td class="td-header">Quantity</td>
+                        <td class="td-header">Sold by</td>
+                        <td class="td-header">Price</td>
+                        <td class="td-header">Total</td>
+                    </tr>
+                    
+                    <% order.items.forEach(item => { %>
+                        <tr>   
+                            <td><%= item.name %></td>
+                            <td><%= item.quantity %></td>
+                            <td>
+                                <% allGrocers.forEach(grocer => { %>
+                                    <% if (JSON.stringify(grocer._id) === JSON.stringify(item.seller)) { %>
+                                        <%= grocer.username %>
+                                    <% } %>    
+                                <% }) %>
+                            </td>
+                            <td><%= item.price %></td>
+                            <td><%= item.total %></td>
+                        </tr>
+                    <% }) %>
+
+                </table>
+                <p>Order total: $<%=order.total%></p>
+            </div>
+
+        <% }) %>
+    </div>
+    
+    <%- include('../../partials/navigation/_buttons.ejs') %>
+
+<%- include('../../partials/layout-end.ejs') %>

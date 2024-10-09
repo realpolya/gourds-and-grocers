@@ -55,8 +55,13 @@ router.get('/history', async (req, res) => {
         const user = await User.findById(req.session.user._id);
 
         // retrieve past orders
+        const pastOrders = user.pastOrders;
 
-        // 
+        // get all grocers to match id with name
+        const allGrocers = await User.find({ account: 'grocer' });
+
+        // return { id: match._id, seller: match.seller, name: match.name, quantity: item[1], price: match.price, total };
+        res.render('templates/shopper/history.ejs', { user, pastOrders, allGrocers });
         
     } catch (err) {
 

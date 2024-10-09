@@ -326,7 +326,6 @@ router.put('/checkout', async (req, res) => {
         /* =================== if all checks cleared... ================= */
 
         // push to past orders for user (but save current name too)
-        // return { id: match._id, seller: match.seller, name: match.name, quantity: item[1], price: match.price, total };
         let itemArray = getCartItems(cart, groceries);
         let currentOrder = {
             items: Array.from(itemArray), // change from (cartObj.items)
