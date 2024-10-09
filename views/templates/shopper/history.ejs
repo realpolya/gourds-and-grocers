@@ -2,6 +2,8 @@
 
     <h2>Order history for <%= user.username %></h2>
 
+    <%- include('../../partials/navigation/_buttons.ejs') %>
+
     <div id="past-orders-tables">
         <% pastOrders.forEach(order => { %>
 
@@ -38,7 +40,5 @@
 
         <% }) %>
     </div>
-    
-    <%- include('../../partials/navigation/_buttons.ejs') %>
 
 <%- include('../../partials/layout-end.ejs') %>

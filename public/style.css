@@ -110,12 +110,20 @@ td {
     width: 5rem;
     height: 5rem;
     object-fit: cover;
-    border: orange 5px solid;
+    border: orangered 5px solid;
     margin: 0 1rem;
 }
 
+.order {
+    background-color: #FFECE6;
+    padding: 1rem;
+    border: orangered solid 1px;
+    border-radius: 1rem;
+    margin: 1rem auto; 
+}
+
 .listing-card {
-    background-color: #E79069 ;
+    background-color: #E79069;
     margin: 1rem;
     display: flex;
     flex-direction: column;
@@ -152,6 +160,8 @@ td {
     font-style: normal;
     font-size: 2.5rem;
 }
+
+
 
 /* IDs */
 
@@ -218,6 +228,10 @@ td {
 #deactivate-btn {
     background-color: darkred;
     color: white;
+}
+
+#past-orders-tables {
+    padding-bottom: 5rem;
 }
 
 /* .griffy-regular {

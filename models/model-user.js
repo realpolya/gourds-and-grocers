@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const orderSchema = new mongoose.Schema({
     items: {
         type: Array,
-        default: []
+        default: [] // array of objects, each object has the structure:
+        // { id: value, seller: name of seller, name: name of item, quantity: quantity of item, price: price of item, total: price * quantity };
     },
     total: Number, 
     date: {

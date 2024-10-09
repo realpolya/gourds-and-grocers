@@ -1,0 +1,17 @@
+<%- include('../../partials/layout.ejs') %>
+
+    <h2>Sales history for <%= user.username %></h2>
+
+    <%- include('../../partials/navigation/_buttons.ejs') %>
+
+    <div id="past-orders-tables">
+        <% sales.forEach(sale => { %>
+
+            <div class="order">
+                <h3>Sale from <%=sale.date%> for $<%=sale.total%></h3>
+            </div>
+
+        <% }) %>
+    </div>
+
+<%- include('../../partials/layout-end.ejs') %>

@@ -68,6 +68,51 @@ router.get('/account', async (req, res) => {
     }
 })
 
+// GET view of history
+router.get('/history', async (req, res) => {
+    try {
+        
+        const user = await User.findById(req.session.user._id);
+
+        const allShoppers = await User.find({ account: 'shopper' });
+
+        // initialize array of objects for the grocer
+        let sales = [];
+
+        // cycle through allShoppers to retrieve their pastOrders
+        allShoppers.forEach(shopper => {
+            
+            // cycle through pastOrders to retrieve items in each order
+            shopper.pastOrders.forEach(order => {
+                
+                // cycle through items (array of objects)
+                order.items.forEach(item => {
+                    
+                    // see if id of seller matches id of USER?
+                    if (JSON.stringify(item.seller) === JSON.stringify(user._id)) {
+                        
+                        // if yes, great! push new object into the success array with the name of the shopper
+                        const copy = Object.assign({}, item);
+                        copy.buyer = shopper.username;
+                        copy.buyerId = shopper._id;
+                        copy.date = order.date;
+                        sales.push(copy);
+
+                    }
+                })
+
+            })
+        })
+
+        console.log("sales for me are ", sales);
+        
+        res.render('templates/grocer/history.ejs', { user, sales });
+
+    } catch (err) {
+        console.error(err);
+    }
+})
+
 // GET individual page for the item
 router.get('/:id', async (req, res) => {
 
