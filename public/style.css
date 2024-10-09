@@ -126,6 +126,16 @@ td {
     justify-content: center;
 }
 
+.history-id-total {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.colored-text {
+    color: darkred;
+}
+
 .listing-card {
     background-color: #E79069;
     margin: 1rem;
@@ -210,7 +220,7 @@ td {
 #buttons {
     display: flex;
     flex-direction: row;
-    padding-bottom: 1rem;
+    padding-bottom: 2.5rem;
 }
 
 #listing-buttons {

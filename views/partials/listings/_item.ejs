@@ -26,17 +26,17 @@
                 (archived)
             <% } %>
         </h3>
-        <h4>Price: $<%= listing.price %></h4>
+        <h4>Price: <span class="colored-text">$<%= listing.price %></span></h4>
         <% if (!grocer) { %>
             <% allGrocers.forEach((grocer) => { %>
                 <% if (JSON.stringify(grocer._id) === JSON.stringify(listing.seller)) { %>
-                    <p>Sold by <%= grocer.username %></p>
+                    <p>Sold by <span class="colored-text"><%= grocer.username %></span></p>
                 <% } %>
             <% }) %>
         <% } %>
         <ul>
             <li> <% if (listing.quantity >= 1) { %>
-                Quantity available: <%= listing.quantity %>
+                Quantity available: <span class="colored-text"><%= listing.quantity %></span>
             <% } else { %>
                 Out of stock...
                 <% if (listing.resupplied) { %>
@@ -44,7 +44,7 @@
                 <% } %>
             <% } %>
             </li>
-            <li>From: <%= listing.from %></li>
+            <li>From: <span class="colored-text"><%= listing.from %></span></li>
             <li><%= listing.info %></li>
         </ul>
 

@@ -34,6 +34,10 @@ a, h1 {
     border: #624090 5px solid;
 }
 
+.colored-text {
+    color: #624090;
+}
+
 /* #gg-header {
     background-color: #624090;
 } */

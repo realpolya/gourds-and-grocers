@@ -35,7 +35,10 @@
                     <% }) %>
 
                 </table>
-                <p>Order total: $<%=order.total%></p>
+                <div class="history-id-total">
+                    <p>Order ID: <span class="colored-text"><%=order._id%></span></p>
+                    <p>Order total: <span class="colored-text">$<%=order.total%></span></p>
+                </div>
             </div>
 
         <% }) %>
