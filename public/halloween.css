@@ -6,6 +6,17 @@ header, footer {
     background-color: #624090;
 }
 
+button {
+    background-color: var(--halloween-orange);
+    color: #624090;
+    border: #624090 1px dashed;
+}
+
+button:hover {
+    background-color: #624090;
+    color: white;
+}
+
 #header-id, #footer-id {
     background-color: #624090;
 }

@@ -1,9 +1,21 @@
+:root {
+    --main-color: #FFDECF;
+    --accent-color: #E79069;
+    --dark-color: #A36B61;
+    --red-color: #C4515B;
+    --darkred-color: darkred;
+    --light-color: #FFECE6;
+    --text-accent-color: darkred;
+    --button-color: #FFF5EA;
+    --halloween-orange: #FFE6BB;
+}
+
 html {
     height: 100%;
 }
 
 body {
-    background-color: #FFDECF;
+    background-color: var(--main-color);
     font-family: "Montaga", serif;
     font-weight: 400;
     font-style: normal;
@@ -25,7 +37,7 @@ h1 {
 
 header {
     height: 10%;
-    background-color: #E79069;
+    background-color: var(--accent-color);
     padding: 0 1rem;
 }
 
@@ -49,7 +61,7 @@ footer {
 
     position: fixed;
     bottom: 0;
-    background-color: #FFDECF;
+    background-color: var(--main-color);
 }
 
 button {
@@ -59,10 +71,17 @@ button {
     width: auto;
     border-radius: 1rem;
     padding: .5rem;
+    font-family: "Montaga", serif;
+    font-weight: 400;
+    font-style: normal;
+    background-color: var(--button-color);
+    border: 1px var(--red-color) dashed;
+    color: var(--text-accent-color);
 }
 
 button:hover {
-    background-color: orange;
+    background-color: var(--red-color);
+    color: white;
 }
 
 form {
@@ -71,9 +90,15 @@ form {
     width: 50%;
 }
 
+select, option, input {
+    font-family: "Montaga", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
 a {
     margin: 0 .5rem;
-    color: darkred;
+    color: var(--text-accent-color);
 }
 
 ul {
@@ -81,7 +106,7 @@ ul {
 }
 
 td {
-    border: 1px orangered solid;
+    border: 1px var(--light-color) solid;
 }
 
 td {
@@ -104,14 +129,14 @@ td {
 }
 
 .info-msg {
-    color: darkred;
+    color: var(--text-accent-color);
 }
 
 .listing-image, .one-item-image {
     width: 5rem;
     height: 5rem;
     object-fit: cover;
-    border: orangered 5px solid;
+    border: var(--light-color) 5px solid;
     margin: 0 1rem;
 }
 
@@ -133,7 +158,7 @@ td {
 }
 
 .colored-text {
-    color: darkred;
+    color: var(--text-accent-color);
 }
 
 .listing-card {
@@ -183,7 +208,6 @@ td {
 }
 
 
-
 /* IDs */
 
 #item-head {
@@ -227,7 +251,7 @@ td {
 #buttons {
     display: flex;
     flex-direction: row;
-    padding-bottom: 2.5rem;
+    padding-bottom: 1rem;
 }
 
 #listing-buttons {
@@ -257,19 +281,6 @@ td {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-#sort-bar {
-    display: flex;
-    flex-direction: row;
-    width: 95%;
-    justify-content: space-between;
-    background-color: #E79069;
-}
-
-#sort-filter {
-    display: flex;
-    flex-direction: row;
 }
 
 /* .griffy-regular {
