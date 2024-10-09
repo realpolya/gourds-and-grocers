@@ -251,7 +251,7 @@ td {
 #buttons {
     display: flex;
     flex-direction: row;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
 }
 
 #listing-buttons {

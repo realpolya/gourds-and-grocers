@@ -49,6 +49,15 @@ const sortList = async (sortValue) => {
     return listings;
 }
 
+const filterList = async (filterValue) => {
+    
+    console.log(filterValue);
+    const listings = await Grocery.find({ seller: filterValue });
+    console.log("Listings are ", listings);
+    return listings;
+
+}
+
 /* --------------------------------Routes--------------------------------*/
 
 // GET routes – SIGNED OUT
@@ -96,7 +105,35 @@ router.get("/sort", async (req, res) => {
         if (sortValue === "halloween") halloween = true;
 
         // define listings based on the value
-        let listings = await sortList(sortValue);
+        const listings = await sortList(sortValue);
+
+        /* ----------------- finish sort/filter/search ------------------- */
+
+        res.render("templates/main/market", { user, listings, grocer, allGrocers, halloween });
+
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+// GET route for filter (signed out version)
+router.get("/filter", async (req, res) => {
+
+    try {
+
+        let user;
+        let halloween; // value to load css stylesheet
+        const grocer = false;
+
+        // all of grocers
+        const allGrocers = await User.find({ account: 'grocer' });
+
+        /* ----------------- deal with sort/filter/search ------------------- */
+        // retrieve filter value
+        const filterValue = req.query.filter;
+
+        // define listings based on the value
+        const listings = await filterList(filterValue);
 
         /* ----------------- finish sort/filter/search ------------------- */
 
@@ -165,6 +202,34 @@ router.get("/signed-in/sort", async (req, res) => {
         /* ----------------- finish sort/filter/search ------------------- */
 
         res.render("templates/main/market", { listings, grocer, user, allGrocers, halloween });
+
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+// GET route for filter (signed IN version)
+router.get("/signed-in/filter", async (req, res) => {
+
+    try {
+
+        const user = await User.findById(req.session.user._id);
+        let halloween; // value to load css stylesheet
+        const grocer = false;
+
+        // all of grocers
+        const allGrocers = await User.find({ account: 'grocer' });
+
+        /* ----------------- deal with sort/filter/search ------------------- */
+        // retrieve filter value
+        const filterValue = req.query.filter;
+
+        // define listings based on the value
+        const listings = await filterList(filterValue);
+
+        /* ----------------- finish sort/filter/search ------------------- */
+
+        res.render("templates/main/market", { user, listings, grocer, allGrocers, halloween });
 
     } catch (err) {
         console.log(err);

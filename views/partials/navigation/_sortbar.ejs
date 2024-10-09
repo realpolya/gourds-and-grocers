@@ -17,13 +17,18 @@
             </select>
             <button class="sort-bar-button" type="submit">Sort</button>
         </form>
-        <form action="" method="" class="sort-bar-form">
+        <form 
+            <% if (user) { %>
+                action="/market/signed-in/filter" 
+            <% } else { %>
+                action="/market/filter" 
+            <% } %>
+            method="GET" class="sort-bar-form">
             <select id="filter-select" name="filter" required>
                 <option value="" disabled selected>---Filter by Grocer---</option>
-                <!-- <option value="true">Halloween Items</option>
-                <option value="false">Non-Halloween Items</option>
-                <option value="false">Newest Items</option>
-                <option value="false">Oldest Items</option> -->
+                <% allGrocers.forEach(grocer => { %>
+                    <option value="<%=grocer._id%>">Grocer <%=grocer.username%></option>
+                <% }) %>
             </select>
             <button class="sort-bar-button" type="submit">Filter</button>
         </form>
