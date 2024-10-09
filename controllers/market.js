@@ -287,11 +287,9 @@ router.get("/signed-in/search", async (req, res) => {
         const allGrocers = await User.find({ account: 'grocer' });
 
         /* ----------------- deal with sort/filter/search ------------------- */
-        // retrieve filter value
-        const searchValue = req.query.search;
 
         // define listings based on the value
-        const listings = await searchList(searchValue);
+        const listings = await searchList(req.query.search);
 
         /* ----------------- finish sort/filter/search ------------------- */
 
