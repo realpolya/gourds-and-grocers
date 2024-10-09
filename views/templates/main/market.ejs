@@ -1,9 +1,15 @@
 <%- include('../../partials/layout.ejs') %>
 
-    <h2>Fall Listings</h2>
+    <% if (halloween) { %>
+        <!--style-->
+        <link rel="stylesheet" href="/halloween.css">
+        <h2><span class="halloween-font">Halloween</span> Listings</h2>
+    <% } else { %>
+        <h2>Fall Listings</h2>
+    <% } %>
 
     <%- include('../../partials/navigation/_buttons.ejs') %>
-    
+
     <%- include('../../partials/navigation/_sortbar.ejs') %>
 
     <%- include('../../partials/listings/_listings.ejs') %>
