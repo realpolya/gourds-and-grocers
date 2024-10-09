@@ -78,7 +78,7 @@ router.get("/", async (req, res) => {
         const listings = await Grocery.find({ listed: true });
         const grocer = false;
         // all of grocers
-        const allGrocers = await User.find({ account: 'grocer' });
+        const allGrocers = await User.find({ account: 'grocer', activated: true });
 
         /* ----------------- deal with sort/filter/search ------------------- */
 
@@ -105,7 +105,7 @@ router.get("/sort", async (req, res) => {
         const grocer = false;
 
         // all of grocers
-        const allGrocers = await User.find({ account: 'grocer' });
+        const allGrocers = await User.find({ account: 'grocer', activated: true });
 
         /* ----------------- deal with sort/filter/search ------------------- */
         // retrieve sort value
@@ -135,7 +135,7 @@ router.get("/filter", async (req, res) => {
         const grocer = false;
 
         // all of grocers
-        const allGrocers = await User.find({ account: 'grocer' });
+        const allGrocers = await User.find({ account: 'grocer', activated: true });
 
         /* ----------------- deal with sort/filter/search ------------------- */
         // retrieve filter value
@@ -164,7 +164,7 @@ router.get("/search", async (req, res) => {
         const grocer = false;
 
         // all of grocers
-        const allGrocers = await User.find({ account: 'grocer' });
+        const allGrocers = await User.find({ account: 'grocer', activated: true });
 
         /* ----------------- deal with sort/filter/search ------------------- */
         // retrieve filter value
@@ -192,8 +192,9 @@ router.get("/item/:id", async (req, res) => {
     let user = false;
     const grocer = false; // is grocer changing his items?
     
-    // all of grocers
-    const allGrocers = await User.find({ account: 'grocer' });
+    // all of grocers TODO: find actual grocer by ID of listing
+    const allGrocers = await User.find({ account: 'grocer', activated: true });
+    
 
     let message;
 
@@ -211,7 +212,7 @@ router.get("/signed-in", async (req, res) => {
     const grocer = false; // is grocer changing his items?
     const user = await User.findById(req.session.user._id);
     // all of grocers
-    const allGrocers = await User.find({ account: 'grocer' });
+    const allGrocers = await User.find({ account: 'grocer', activated: true });
     let halloween; // load css for halloween
     res.render("templates/main/market", { listings, grocer, user, allGrocers, halloween });
 });
@@ -226,7 +227,7 @@ router.get("/signed-in/sort", async (req, res) => {
         const grocer = false;
 
         // all of grocers
-        const allGrocers = await User.find({ account: 'grocer' });
+        const allGrocers = await User.find({ account: 'grocer', activated: true });
 
         /* ----------------- deal with sort/filter/search ------------------- */
         // retrieve sort value
@@ -256,7 +257,7 @@ router.get("/signed-in/filter", async (req, res) => {
         const grocer = false;
 
         // all of grocers
-        const allGrocers = await User.find({ account: 'grocer' });
+        const allGrocers = await User.find({ account: 'grocer', activated: true });
 
         /* ----------------- deal with sort/filter/search ------------------- */
         // retrieve filter value
@@ -284,7 +285,7 @@ router.get("/signed-in/search", async (req, res) => {
         const grocer = false;
 
         // all of grocers
-        const allGrocers = await User.find({ account: 'grocer' });
+        const allGrocers = await User.find({ account: 'grocer', activated: true });
 
         /* ----------------- deal with sort/filter/search ------------------- */
 
@@ -310,7 +311,7 @@ router.get("/item/:id/shop", async (req, res) => {
     const grocer = false;
 
     // all of grocers
-    const allGrocers = await User.find({ account: 'grocer' });
+    const allGrocers = await User.find({ account: 'grocer', activated: true });
 
     let message;
 

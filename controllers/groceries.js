@@ -215,6 +215,14 @@ router.put('/account/deactiv', async (req, res) => {
         await user.save();
         console.log(user);
 
+        // delist all of the grocer's listings
+        const listings = await Grocery.find({ seller: user._id });
+        listings.forEach(listing => listing.listed = false);
+        for (let i = 0; i < listings.length; i++) {
+            await listings[i].save();
+        }
+        console.log("Deactivated listings are ", listings);
+
         // render the template
         res.redirect('/auth/sign-out');
 
