@@ -201,6 +201,32 @@ router.post('/', async (req, res) => {
     
 })
 
+// PUT deactivate account
+router.put('/account/deactiv', async (req, res) => {
+    
+    try {
+
+        // find user
+        const user = await User.findById(req.session.user._id);
+
+        // update balance from before
+        user.activated = false;
+
+        // save the model
+        await user.save();
+        console.log(user);
+
+        // render the template
+        res.redirect('/auth/sign-out');
+
+    } catch (err) {
+
+        console.error(err);
+
+    }
+    
+})
+
 // POST inactivate the listing
 router.post('/:id/inactive', async (req, res) => {
 

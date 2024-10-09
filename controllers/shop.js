@@ -105,26 +105,30 @@ router.put('/account', async (req, res) => {
     
 })
 
-// TODO: PUT deactivate account
-router.put('/:id/remove', async (req, res) => {
-
+// PUT deactivate account
+router.put('/account/deactiv', async (req, res) => {
+    
     try {
-        
-        // retrieve item
-        const itemId = req.params.id;
-        const listing = await Grocery.findById(itemId);
 
         // find user
         const user = await User.findById(req.session.user._id);
 
-        // render
-        res.render('templates/shopper/cart.ejs', { user, cart, itemArray, message, groceryName, totalAmount });
+        // update balance from before
+        user.activated = false;
 
+        // save the model
+        await user.save();
+        console.log(user);
+
+        // render the template
+        res.redirect('/auth/sign-out');
 
     } catch (err) {
-        console.error(err);
-    }
 
+        console.error(err);
+
+    }
+    
 })
 
 

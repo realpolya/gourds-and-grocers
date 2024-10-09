@@ -22,7 +22,17 @@
 
 </ul>
 
-<form action="" method="GET">
-    <button type="submit" id="deactivate-btn">Deactivate Account</button>
-</form>
+<% if (user.account === "grocer") { %>
+    
+    <form action="/groceries/account/deactiv?_method=PUT" method="POST">
+        <button type="submit" id="deactivate-btn">Deactivate Account</button>
+    </form>
+
+<% } else if (user.account === "shopper") { %>
+        
+    <form action="/shop/account/deactiv?_method=PUT" method="POST">
+        <button type="submit" id="deactivate-btn">Deactivate Account</button>
+    </form>
+    
+<%  } %>
 

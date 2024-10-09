@@ -66,6 +66,12 @@ const signIn = async (req, res) => {
         return res.send("Login failed. Please try again.");
     }
 
+    // no deactivated accounts
+    if (!user.activated) {
+        console.log('account deactivated');
+        return res.send("Login failed. Please try again.");
+    }
+
     // compare password
     const checkPass = bcrypt.compareSync(req.body.password, user.password);
     if (!checkPass) {
