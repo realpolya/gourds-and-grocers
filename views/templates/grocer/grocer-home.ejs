@@ -1,4 +1,30 @@
 <%- include('../../partials/layout.ejs') %>
+    
+    <!--message about out of stock items are restocking.
+    message format is:
+    ["The following item is out of stock:", "The current restocking frequency (in days) is:"];-->
+    <% if (message) { %>
+        <div id="out-of-stock-block">
+            <h2>Warning!</h2>
+
+            <% outOfStock.forEach(item => { %>
+                <div class="out-of-stock-msg">
+                    <p>
+                        <%=message[0]%><a href="/groceries/<%=item._id%>"><%=item.name%></a>
+                    </p>
+                    <p>
+                        <%=message[1]%> 
+                        <% if (item.resupplied) { %>
+                            <%=item.frequency%>.
+                        <% } else { %>
+                            never.
+                        <% } %>
+                    </p>
+                </div>
+            <% }) %>
+
+        </div>
+    <% } %>
 
     <div id="grocer-intro">
         <h2>Welcome, grocer <%= user.username %>!</h2>

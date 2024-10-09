@@ -31,11 +31,34 @@ router.get('/', async (req, res) => {
         let listing;
         let message;
         const grocer = { archived: false }; // is grocer dealing with archived items?
-        res.render('templates/grocer/listings.ejs', { user, listings, message, listing, grocer })
+        res.render('templates/grocer/listings.ejs', { user, listings, message, listing, grocer });
     } catch (err) {
         console.error(err);
     }
 
+});
+
+// GET grocer home
+router.get("/home", async (req, res) => {
+    
+    try {
+        
+        const user = await User.findById(req.session.user._id);
+
+        let message;
+    
+        // find listed groceries out of stock
+        const outOfStock = await Grocery.find({ seller: user._id, listed: true, quantity: 0 });
+        console.log("Out of stock items are ", outOfStock);
+        if (outOfStock.length >= 1) {
+            message = ["The following item is out of stock:", "The current restocking frequency (in days) is:"];
+        }
+    
+        res.render("templates/grocer/grocer-home.ejs", { user, message, outOfStock })
+
+    } catch (err) {
+        console.error(err);
+    }   
 });
 
 // GET archived listings
@@ -60,6 +83,7 @@ router.get('/account', async (req, res) => {
     try {
         
         const user = await User.findById(req.session.user._id);
+        user.balance = Math.trunc(user.balance * 100) / 100;
         
         res.render('templates/grocer/account.ejs', { user });
 

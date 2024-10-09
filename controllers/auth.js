@@ -50,7 +50,7 @@ const signUp = async (req, res) => {
     await req.session.save();
 
     if (user.account === "grocer"){
-        return res.render("templates/grocer/grocer-home.ejs", { user })
+        return res.redirect('/groceries/home');
     } else if (user.account === "shopper") {
         let message;
         return res.render("templates/shopper/shopper-home.ejs", { user, message })
@@ -82,7 +82,9 @@ const signIn = async (req, res) => {
 
     if (user.account === "grocer"){
         
-        res.render("templates/grocer/grocer-home.ejs", { user });
+        // let message;
+        // return res.render("templates/grocer/grocer-home.ejs", { user, message });
+        return res.redirect('/groceries/home');
 
     } else {
         
