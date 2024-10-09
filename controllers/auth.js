@@ -14,15 +14,16 @@ const signUp = async (req, res) => {
     
     // password check
     if (req.body.password !== req.body.confirmPassword) {
-        console.log("Passwords do not match");
-        return res.send("Passwords do not match");
+        let message = "Passwords do not match";
+        return res.render("templates/auth/error.ejs", { message });
     }
 
     // user already exists check
     const userInDatabase = await User.findOne({ username: req.body.username });
 
     if (userInDatabase) {
-        return res.send("Username is already taken!");
+        let message = "Username is already taken!";
+        return res.render("templates/auth/error.ejs", { message });
     }
 
     // hash password
@@ -63,19 +64,22 @@ const signIn = async (req, res) => {
     // confirm the user exists
     const user = await User.findOne({ username: req.body.username })
     if (!user) {
-        return res.send("Login failed. Please try again.");
+        let message = "Login failed. Please try again.";
+        return res.render("templates/auth/error.ejs", { message });
     }
 
     // no deactivated accounts
     if (!user.activated) {
         console.log('account deactivated');
-        return res.send("Login failed. Please try again.");
+        let message = "Login failed. Please try again.";
+        return res.render("templates/auth/error.ejs", { message });
     }
 
     // compare password
     const checkPass = bcrypt.compareSync(req.body.password, user.password);
     if (!checkPass) {
-        return res.send("Login failed. Please try again.")
+        let message = "Login failed. Please try again.";
+        return res.render("templates/auth/error.ejs", { message });
     }
 
     // create an object for the user
@@ -88,14 +92,11 @@ const signIn = async (req, res) => {
 
     if (user.account === "grocer"){
         
-        // let message;
-        // return res.render("templates/grocer/grocer-home.ejs", { user, message });
         return res.redirect('/groceries/home');
 
     } else {
         
-        let message;
-        res.render("templates/shopper/shopper-home.ejs", { user, message });
+        return res.redirect('/shop');
 
     }
 

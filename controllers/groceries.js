@@ -4,7 +4,6 @@ import Grocery from "../models/model-grocery.js";
 import User from "../models/model-user.js";
 
 
-
 /* --------------------------------Express & Mongoose--------------------------------*/
 
 const router = Router();
