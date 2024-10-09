@@ -325,10 +325,12 @@ router.put('/checkout', async (req, res) => {
 
         /* =================== if all checks cleared... ================= */
 
-        // push to past orders for user
+        // push to past orders for user (but save current name too)
+        // return { id: match._id, seller: match.seller, name: match.name, quantity: item[1], price: match.price, total };
+        let itemArray = getCartItems(cart, groceries);
         let currentOrder = {
-            items: Array.from(cartObj.items),
-            total: cartObj.total
+            items: Array.from(itemArray), // change from (cartObj.items)
+            total: cartObj.total,
         }
         user.pastOrders.push(currentOrder);
 
@@ -339,7 +341,6 @@ router.put('/checkout', async (req, res) => {
         // change profts for EVERY grocer, create paid array
         const grocersPaid = [];
         const allGrocers = await User.find({ account: 'grocer' });
-        let itemArray = getCartItems(cart, groceries);
         itemArray.forEach(item => {
             allGrocers.forEach(grocer => {
                 if (JSON.stringify(item.seller) === JSON.stringify(grocer._id)) {
@@ -395,7 +396,6 @@ router.put('/checkout', async (req, res) => {
     }
 
 });
-
 
 /* --------------------------------Exports--------------------------------*/
 

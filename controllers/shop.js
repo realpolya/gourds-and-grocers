@@ -46,6 +46,26 @@ router.get('/account', async (req, res) => {
 
 });
 
+// get past orders
+router.get('/history', async (req, res) => {
+      
+    try {
+
+        // find user
+        const user = await User.findById(req.session.user._id);
+
+        // retrieve past orders
+
+        // 
+        
+    } catch (err) {
+
+        console.error(err);
+
+    }
+
+})
+
 
 
 // POST routes

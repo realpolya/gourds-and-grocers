@@ -41,6 +41,14 @@ const signUp = async (req, res) => {
     const allUsers = await User.find();
     console.log(allUsers);
 
+    // create an object for the user
+    req.session.user = { 
+        username: user.username,
+        _id: user._id
+    };
+
+    await req.session.save();
+
     if (user.account === "grocer"){
         return res.render("templates/grocer/grocer-home.ejs", { user })
     } else if (user.account === "shopper") {
@@ -71,7 +79,6 @@ const signIn = async (req, res) => {
     };
 
     await req.session.save();
-    console.log(user)
 
     if (user.account === "grocer"){
         
@@ -82,13 +89,7 @@ const signIn = async (req, res) => {
         let message;
         res.render("templates/shopper/shopper-home.ejs", { user, message });
 
-    }    
-
-    // // asynchronous callback
-    // req.session.save(() => {
-    //     res.redirect("/");
-    //     // res.render("/", { req });
-    // });
+    }
 
 }
 

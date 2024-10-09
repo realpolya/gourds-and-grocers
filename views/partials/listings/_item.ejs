@@ -38,7 +38,7 @@
             <li> <% if (listing.quantity >= 1) { %>
                 Quantity available: <%= listing.quantity %>
             <% } else { %>
-                Out fo stock...
+                Out of stock...
                 <% if (listing.resupplied) { %>
                     Back in <%= listing.frequency %> days!
                 <% } %>
@@ -66,7 +66,7 @@
                     </form>
                 
                 <!-- shopper viewing a listing, items must be listed -->
-                <% } else if (user.account === "shopper" && listing.listed) { %>
+                <% } else if (user.account === "shopper" && listing.listed && listing.quantity >= 1) { %>
 
                     <!-- specify quantity -->
                     <form action="/cart/<%=listing._id%>" method="POST">
