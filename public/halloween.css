@@ -34,7 +34,7 @@ a, h1 {
     font-weight: 400;
     font-style: normal;
     font-size: 2rem;
-    color: orange;
+    color: var(--halloween-orange-font);
 }
 
 #one-item-card {
@@ -42,7 +42,7 @@ a, h1 {
 }
 
 .listing-image, .one-item-image {
-    border: #624090 1px solid;
+    border: var(--halloween-dark-color) 1px solid;
 }
 
 .colored-text {
