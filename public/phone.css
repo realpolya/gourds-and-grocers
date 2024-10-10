@@ -1,6 +1,10 @@
 /* media queries 820px as original max width */ 
 @media (max-width: 820px) {
 
+    main {
+        justify-content: center;
+    }
+
     #main-header-logo {
         font-size: 2rem;
     }
