@@ -58,20 +58,27 @@ Visit the [Trello board](https://trello.com/invite/b/66feb6176c1bcc2536c185a2/AT
 
 ## Routes
 
-| Route    | Method | Description |
+| Route    | Method | Description | Need sign-in? |
+| -------- | ------- | ------- | ------- | 
+| ```/``` | GET | Render home page of the website | No |
 | -------- | ------- | ------- |
-| ```/``` | GET | Render home page of the website |
+| ```/auth/sign-up``` | GET | Render sign-up page | No |
+| ```/auth/sign-in``` | GET | Render sign-in page | No |
+| ```/auth/sign-out``` | GET | Sign user out and destroy req.session | No |
+| ```/auth/sign-up``` | POST | Sign user up | No |
+| ```/auth/sign-in``` | POST | Sign user in | No |
 | -------- | ------- | ------- |
-| ```/auth/sign-up``` | GET | Render sign-up page |
-| ```/auth/sign-in``` | GET | Render sign-in page |
-| ```/auth/sign-out``` | GET | Sign user out and destroy req.session |
-| ```/auth/sign-up``` | POST | Sign user up |
-| ```/auth/sign-in``` | POST | Sign user in |
+| ```/market``` | GET | Render market page (Signed out) | No |
+| ```/market/sort``` | GET | Display sorted market page (Signed out) | No |
+| ```/market/filter``` | GET | Display filtered market page (Signed out) | No |
+| ```/market/search``` | GET | Display searched market page (Signed out) | No |
+| ```/market/item/:id``` | GET | Render item page (Signed out) | No |
+| ```/market/signed-in``` | GET | Render market page (Signed in) | Yes |
+| ```/market/signed-in/sort``` | GET | Display sorted market page (Signed in) | Yes |
+| ```/market/signed-in/filter``` | GET | Display filtered market page (Signed in) | Yes |
+| ```/market/signed-in/search``` | GET | Display searched market page (Signed in) | Yes |
+| ```/market/item/:id/shop``` | GET | Render item page (Signed in) | Yes |
 | -------- | ------- | ------- |
-| ```/market``` | GET | Render market page (Signed out) |
-| ```/market/sort``` | GET | Display sorted market page (Signed out) |
-| ```/market/filter``` | GET | Display filtered market page (Signed out) |
-| ```/market/search``` | GET | Display searched market page (Signed out) |
 
 ## Types of Users
 
