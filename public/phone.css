@@ -111,5 +111,9 @@
         flex-direction: row-reverse;
     }
 
+    #out-of-stock-block {
+        padding: 2rem 0;
+    }
+
 
 }
