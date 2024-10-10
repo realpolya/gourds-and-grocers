@@ -38,16 +38,22 @@ a, h1 {
 }
 
 #one-item-card {
-    background-color: #F6F0FF;
+    background-color: var(--halloween-light-color);
 }
 
 .listing-image, .one-item-image {
-    border: #624090 5px solid;
+    border: #624090 1px solid;
 }
 
 .colored-text {
     color: var(--halloween-text-accent-color);
 }
+
+#sort-bar {
+    background-color: var(--halloween-light-color);
+}
+
+
 
 /* #gg-header {
     background-color: #624090;

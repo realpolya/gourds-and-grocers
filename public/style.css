@@ -11,6 +11,7 @@
     --halloween-orange-font: #ffa500;
     --halloween-main-color: #9583B1;
     --halloween-dark-color: #624090;
+    --halloween-light-color: #c5b8d9;
     --halloween-text-accent-color: #624090;
 }
 
@@ -144,10 +145,10 @@ li {
 }
 
 .listing-image, .one-item-image {
-    width: 5rem;
-    height: 5rem;
+    width: 8rem;
+    height: 8rem;
     object-fit: cover;
-    border: var(--light-color) 5px solid;
+    border: var(--light-color) 1px solid;
     margin: 0 1rem;
 }
 
@@ -182,7 +183,7 @@ li {
     padding: 1rem;
     border-radius: 1rem;
     width: 20rem;
-    min-height: 25rem;
+    height: 32rem;
 }
 
 .listing-card-top {
@@ -286,7 +287,7 @@ li {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    background-color: #FFECE6;
+    background-color: var(--light-color);
     border-radius: 2rem;
     padding: 3rem;
 }
