@@ -39,11 +39,11 @@ Flow chart work was completed using FigJam.
 
 Main color palette:
 
-![color palette](./assets/planning/Palette2.png)
+![color palette](./assets/planning/palette2.png)
 
 Halloween color palette:
 
-![color palette](./assets/planning/Palette1.png)
+![color palette](./assets/planning/palette1.png)
 
 ``` css
 :root {
