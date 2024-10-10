@@ -1,5 +1,5 @@
 /* media queries 820px as original max width */ 
-@media (max-width: 600) {
+@media (max-width: 600px) {
 
     #main-header-logo {
         font-size: 2rem;
