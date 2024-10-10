@@ -322,4 +322,12 @@ li {
     font-style: normal;
 } */
   
-  
+
+/* justify-content in main screws up the css for mobile */
+@media (min-width: 820px) {
+
+    main {
+        justify-content: space-evenly;
+    }
+
+}
