@@ -1,8 +1,6 @@
 # Gourds and Grocers Market 🎃
 
-**Gourds and Grocers** is a web application that models real-world e-commerce website focusing on grocery retailers selling fall seasonal items.
-
-## Description
+[**Gourds and Grocers**](https://gourds-and-grocers-fc1e690d830c.herokuapp.com/) is a web application that models real-world e-commerce website focusing on grocery retailers selling fall seasonal items.
 
 ## Planning Phase
 
@@ -39,7 +37,7 @@ Flow chart work was completed using FigJam.
 
 ### ERD
 
-ERD work was completed using FigJam.
+ERD work was completed using FigJam. The data models use both embedding and referencing. ```Cart``` model utilizes subschema for items in the cart (item id and quantity). All three models reference each other.
 
 ![gourds and grocers data models](./assets/planning/Gourds_and_Grocers_ERD.png)
 
@@ -61,24 +59,71 @@ Visit the [Trello board](https://trello.com/invite/b/66feb6176c1bcc2536c185a2/AT
 | Route    | Method | Description | Need sign-in? |
 | -------- | ------- | ------- | ------- | 
 | ```/``` | GET | Render home page of the website | No |
-| -------- | ------- | ------- |
+
+### Auth.js Controller
+
+| Route    | Method | Description | Need sign-in? |
+| -------- | ------- | ------- | ------- |
 | ```/auth/sign-up``` | GET | Render sign-up page | No |
 | ```/auth/sign-in``` | GET | Render sign-in page | No |
 | ```/auth/sign-out``` | GET | Sign user out and destroy req.session | No |
 | ```/auth/sign-up``` | POST | Sign user up | No |
 | ```/auth/sign-in``` | POST | Sign user in | No |
-| -------- | ------- | ------- |
-| ```/market``` | GET | Render market page (Signed out) | No |
-| ```/market/sort``` | GET | Display sorted market page (Signed out) | No |
-| ```/market/filter``` | GET | Display filtered market page (Signed out) | No |
-| ```/market/search``` | GET | Display searched market page (Signed out) | No |
-| ```/market/item/:id``` | GET | Render item page (Signed out) | No |
-| ```/market/signed-in``` | GET | Render market page (Signed in) | Yes |
-| ```/market/signed-in/sort``` | GET | Display sorted market page (Signed in) | Yes |
-| ```/market/signed-in/filter``` | GET | Display filtered market page (Signed in) | Yes |
-| ```/market/signed-in/search``` | GET | Display searched market page (Signed in) | Yes |
-| ```/market/item/:id/shop``` | GET | Render item page (Signed in) | Yes |
-| -------- | ------- | ------- |
+
+### Market.js Controller
+
+| Route    | Method | Description | Need sign-in? |
+| -------- | ------- | ------- | ------- |
+| ```/market``` | GET | Render market page | No |
+| ```/market/sort``` | GET | Display sorted market page | No |
+| ```/market/filter``` | GET | Display filtered market page | No |
+| ```/market/search``` | GET | Display searched market page | No |
+| ```/market/item/:id``` | GET | Render item page | No |
+| ```/market/signed-in``` | GET | Render market page | Yes |
+| ```/market/signed-in/sort``` | GET | Display sorted market page | Yes |
+| ```/market/signed-in/filter``` | GET | Display filtered market page | Yes |
+| ```/market/signed-in/search``` | GET | Display searched market page | Yes |
+| ```/market/item/:id/shop``` | GET | Render item page | Yes |
+
+### Groceries.js Controller
+
+| Route    | Method | Description | Need sign-in? |
+| -------- | ------- | ------- | ------- |
+| ```/groceries``` | GET | Render grocer's listings page | Yes |
+| ```/groceries/home``` | GET | Render grocer's home page | Yes |
+| ```/groceries/archived``` | GET | Render grocer's archived listings page | Yes |
+| ```/groceries/new``` | GET | Render grocer's new listing page | Yes |
+| ```/groceries/account``` | GET | Render grocer's account page | Yes |
+| ```/groceries/history``` | GET | Render grocer's past sales page | Yes |
+| ```/groceries/:id``` | GET | Render grocer's single listing page | Yes |
+| ```/groceries/:id/edit``` | GET | Render grocer's single listing's edit page | Yes |
+| ```/groceries``` | POST | Post new listing | Yes |
+| ```/groceries/account/deactiv``` | PUT | Deactivate grocer's account | Yes |
+| ```/groceries/:id/inactive``` | POST | Archive listing | Yes |
+| ```/groceries/:id/relist``` | POST | Reactivate listing | Yes |
+| ```/groceries/:id``` | PUT | Update existing listing | Yes |
+
+
+### Shop.js Controller
+
+| Route    | Method | Description | Need sign-in? |
+| -------- | ------- | ------- | ------- |
+| ```/shop``` | GET | Render shopper's home page | Yes |
+| ```/shop/account``` | GET | Render shopper's account page | Yes |
+| ```/shop/history``` | GET | Render shopper's past orders page | Yes |
+| ```/shop/account``` | PUT | Update account's store credit  | Yes |
+| ```/shop/account/deactiv``` | PUT | Deactivate shopper's account  | Yes |
+
+### Cart.js Controller
+
+| Route    | Method | Description | Need sign-in? |
+| -------- | ------- | ------- | ------- |
+| ```/cart``` | GET | Get shopper's cart view | Yes |
+| ```/cart/:id``` | POST | Add grocery item to the cart | Yes |
+| ```/cart/:id/remove``` | PUT | Remove grocery item from the cart | Yes |
+| ```/cart/clear``` | PUT | Clear cart | Yes |
+| ```/cart/checkout``` | PUT | Check out cart | Yes |
+
 
 ## Types of Users
 
