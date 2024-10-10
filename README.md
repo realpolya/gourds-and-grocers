@@ -51,7 +51,27 @@ Visit the [Trello board](https://trello.com/invite/b/66feb6176c1bcc2536c185a2/AT
 
 ## Technologies Used
 
+* Node.js
+* Express.js
+* MongoDB, Mongoose
+* HTML / CSS / JavaScript
+
 ## Routes
+
+| Route    | Method | Description |
+| -------- | ------- | ------- |
+| ```/``` | GET | Render home page of the website |
+| -------- | ------- | ------- |
+| ```/auth/sign-up``` | GET | Render sign-up page |
+| ```/auth/sign-in``` | GET | Render sign-in page |
+| ```/auth/sign-out``` | GET | Sign user out and destroy req.session |
+| ```/auth/sign-up``` | POST | Sign user up |
+| ```/auth/sign-in``` | POST | Sign user in |
+| -------- | ------- | ------- |
+| ```/market``` | GET | Render market page (Signed out) |
+| ```/market/sort``` | GET | Display sorted market page (Signed out) |
+| ```/market/filter``` | GET | Display filtered market page (Signed out) |
+| ```/market/search``` | GET | Display searched market page (Signed out) |
 
 ## Types of Users
 
@@ -131,7 +151,10 @@ Identifies the cell clicked.
 
 ## Future improvements
 
-### Maximum Call Stack Error
+### Combining User and Grocer Into One User
+
+TODO
+
 The logic for the computer setup employs a recursive function that sometimes leads to maximum call stack error as it can't find the next cell for the ship. If it happens, reloading the page usually solves it, but ideally this needs to be debugged. 
 
 What happens is that the game does not account for ships occupying other cells when it calculates orientation and adjacent cells. Imagine the situation below from a player setup:

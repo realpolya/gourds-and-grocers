@@ -82,15 +82,8 @@ app.get("/", (req, res) => {
 app.use("/auth", authController);
 app.use("/market", marketController);
 
-
 // Signed in routes
 app.use(isSignedIn);
-
-// // grocer home
-// app.get("/grocer-home", async (req, res) => {
-//   const user = await User.findById(req.session.user._id);
-//   res.render("templates/grocer/grocer-home", { user })
-// });
 
 app.use("/groceries", groceriesController);
 app.use("/cart", cartController);
