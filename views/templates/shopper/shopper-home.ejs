@@ -1,7 +1,7 @@
 <%- include('../../partials/layout.ejs') %>
 
     <% if (message) { %>
-        <p><%= message %></p>
+        <p class="info-msg"><%= message %></p>
         <ul>
             <% grocersPaid.forEach(grocer => { %>
                 <li>You paid grocer <%=grocer.name%> $<%=grocer.paid%>.</li>

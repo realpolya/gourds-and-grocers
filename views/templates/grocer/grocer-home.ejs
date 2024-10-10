@@ -9,10 +9,10 @@
 
             <% outOfStock.forEach(item => { %>
                 <div class="out-of-stock-msg">
-                    <p>
+                    <p class="info-msg">
                         <%=message[0]%><a href="/groceries/<%=item._id%>"><%=item.name%></a>
                     </p>
-                    <p>
+                    <p class="info-msg">
                         <%=message[1]%> 
                         <% if (item.resupplied) { %>
                             <%=item.frequency%>.

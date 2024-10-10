@@ -1,7 +1,7 @@
 <%- include('../../partials/layout.ejs') %>
 
     <% if (message && listing) { %>
-        <p><%=message%> <%=listing.name%></p>
+        <p class="info-msg"><%=message%> <%=listing.name%></p>
     <% } %>
 
     <h2>Your Listings, <%= user.username %></h2>
