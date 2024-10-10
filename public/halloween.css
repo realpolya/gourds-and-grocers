@@ -1,24 +1,24 @@
 body, main {
-    background-color: #9583B1;
+    background-color: var(--halloween-main-color);
 };
 
 header, footer {
-    background-color: #624090;
+    background-color: var(--halloween-dark-color);
 }
 
 button {
     background-color: var(--halloween-orange);
-    color: #624090;
-    border: #624090 1px dashed;
+    color: var(--halloween-dark-color);
+    border: var(--halloween-dark-color) 1px dashed;
 }
 
 button:hover {
-    background-color: #624090;
+    background-color: var(--halloween-dark-color);
     color: white;
 }
 
 #header-id, #footer-id {
-    background-color: #624090;
+    background-color: var(--halloween-dark-color);
 }
 
 a, h1 {
@@ -46,7 +46,7 @@ a, h1 {
 }
 
 .colored-text {
-    color: #624090;
+    color: var(--halloween-text-accent-color);
 }
 
 /* #gg-header {

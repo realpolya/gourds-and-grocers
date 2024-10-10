@@ -35,6 +35,34 @@ Flow chart work was completed using FigJam.
 
 ![gourds and grocers wireframe](./assets/planning/GG_Flow.png)
 
+### Color palettes
+
+Main color palette:
+
+![color palette](./assets/planning/Palette2.png)
+
+Halloween color palette:
+
+![color palette](./assets/planning/Palette1.png)
+
+``` css
+:root {
+    --main-color: #FFDECF;
+    --accent-color: #E79069;
+    --dark-color: #A36B61;
+    --red-color: #C4515B;
+    --darkred-color: darkred;
+    --light-color: #FFECE6;
+    --text-accent-color: darkred;
+    --button-color: #FFF5EA;
+    --halloween-orange: #FFE6BB;
+    --halloween-orange-font: orange;
+    --halloween-main-color: #9583B1;
+    --halloween-dark-color: #624090;
+    --halloween-text-accent-color: #624090;
+}
+```
+
 ### ERD
 
 ERD work was completed using FigJam. The data models use both embedding and referencing. ```Cart``` model utilizes subschema for items in the cart (item id and quantity). All three models reference each other.
@@ -124,22 +152,7 @@ Visit the [Trello board](https://trello.com/invite/b/66feb6176c1bcc2536c185a2/AT
 | ```/cart/clear``` | PUT | Clear cart | Yes |
 | ```/cart/checkout``` | PUT | Check out cart | Yes |
 
-
-## Types of Users
-
-### Signed-Out Functionality
-
-### Grocer Functionality
-
-### Shopper Functionality
-
 ## Pages
-
-Battleship game has multiple HTML templates. Besides the landing page (index.html), Battleship has:
-* **Play-setup.html** – page to setup player's fleet.
-* **Play.html** – main playing page where the player plays against computer.
-* **Instructions.html** – page containing instructions on setup and play logic.
-* **Winloss.html** – it is rendered when one player wins.
 
 #### *Landing page*
 ![landing page screenshot](./assets/index.png)
@@ -174,31 +187,17 @@ Battleship game has multiple HTML templates. Besides the landing page (index.htm
 
 ### JS model files
 
-### JS controller files
+* model-user.js
 
+Defines mongoose model for User – both grocers and shoppers. User chooses the type of account upon signing up. Shopper users store an array of objects within the ```pastOrders``` variable, and this object is defined in the ```orderSchema``` subschema. The ```items``` variable within the ```orderSchema``` store an array of obejcts from the previously checked out cart. **It is ultimately an array of objects within an object that is within an array of objects.**
 
+* model-grocery.js
 
-* Script.js
+Defines mongoose model for Grocery item, and can be added only by Grocers. Each Grocery item can be archived by switching the ```listed``` value to false. The ```image``` key retrieves the image from the url from the web. The ```seller``` key points to the ```User``` model's id. 
 
-Main JS file with all the variables, cached elements, game functions, and event listeners. Other files serve as module to this one.
+* model-cart.js
 
-* Math.js
-
-Math.js mainly calculates cell IDs. The grid-size is irrelevant – the HTML grid can be of any size (6x6 or 10x10 or 15x15 or anything else), and the functions will recalculate everything accordingly.
-
-* Board-setup.js
-
-Board-setup.js contains additional functions to display board setup on the page.
-
-* Reset.js
-
-Reset.js contains functions for go back button.
-
-* Call-cell.js
-
-Identifies the cell clicked.
-
-
+Defines mongoose model for Cart item, and it is created for every shopper when they sign up. It is a one-to-one relationship. Cart model has an embedded subschema ```cartItemSchema``` that references the id of the ```Grocery``` and specifies the quantity in cart. ```Cart.items``` is an array of objects that originate from such subchema. Cart gets cleared every time a transaction happens. 
 
 
 ## Future improvements

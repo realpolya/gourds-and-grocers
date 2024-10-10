@@ -184,6 +184,12 @@ router.post('/', async (req, res) => {
     try {
         const user = await User.findById(req.session.user._id);
 
+        // TODO: check if grocer
+        if (user.account !== 'grocer') {
+            let message = "You are not a grocer";
+            return res.render('templates/shopper/error.ejs', { user, message });
+        }
+
         req.body.seller = user._id;
 
         const listing = await Grocery.create(req.body)

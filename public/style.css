@@ -3,11 +3,15 @@
     --accent-color: #E79069;
     --dark-color: #A36B61;
     --red-color: #C4515B;
-    --darkred-color: darkred;
+    --darkred-color: #8b0000;
     --light-color: #FFECE6;
     --text-accent-color: darkred;
     --button-color: #FFF5EA;
     --halloween-orange: #FFE6BB;
+    --halloween-orange-font: #ffa500;
+    --halloween-main-color: #9583B1;
+    --halloween-dark-color: #624090;
+    --halloween-text-accent-color: #624090;
 }
 
 html {
