@@ -5,19 +5,20 @@
         <div class="listing-card">
             
             <div class="listing-card-top">
+
+                <h3><%= listing.name %></h3>
                 
                 <div class="listing-image-div">
                     <img class="listing-image" alt="<%=listing.name%>" src="<%=listing.image%>" />
                 </div>
                 
-                <div>
+                <div class="listing-card-info-div">
                 
-                    <h3><%= listing.name %></h3>
                     <h4>Price: $<%= listing.price %></h4>
                     <% if (!grocer) { %>
                         <% allGrocers.forEach((grocer) => { %>
                             <% if (JSON.stringify(grocer._id) === JSON.stringify(listing.seller)) { %>
-                                <p>Sold by <%= grocer.username %></p>
+                                <p>Sold by <span class="colored-text"><%= grocer.username %></span></p>
                             <% } %>
                         <% }) %>
                     <% } %>
@@ -36,6 +37,7 @@
                     <div class="listing-info-div">
                         <%= listing.info %>
                     </div>
+
                 </div>
 
             </div>
@@ -70,18 +72,15 @@
                     <!-- shopper viewing a listing -->
                     <% } else if (user.account === "shopper") { %>
                         
-                        <!-- <form action="" method="GET">
-                            <button type="submit">Add <%= listing.name %> to cart</button>
-                        </form> -->
                         <form action="/market/item/<%=listing._id%>/shop" method="GET">
-                            <button type="submit">View <%= listing.name %></button>
+                            <button class="listings-view-btn" type="submit">View <%= listing.name %></button>
                         </form>
                     
                     <!-- grocer viewing a listing without changing -->
                     <% } else { %>
                     
                         <form action="/market/item/<%=listing._id%>/shop" method="GET">
-                            <button type="submit">View <%= listing.name %></button>
+                            <button class="listings-view-btn" type="submit">View <%= listing.name %></button>
                         </form>
 
                     <% } %>
@@ -90,7 +89,7 @@
                 <% } else { %>
 
                     <form action="/market/item/<%=listing._id%>" method="GET">
-                        <button type="submit">View <%= listing.name %></button>
+                        <button class="listings-view-btn" type="submit">View <%= listing.name %></button>
                     </form>
 
                 <% } %>

@@ -113,6 +113,10 @@ td {
     padding: .5rem;
 }
 
+li {
+    text-wrap: wrap;
+}
+
 /* Classes */
 
 .td-header {
@@ -169,6 +173,8 @@ td {
     margin: 1rem;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 1rem;
     border-radius: 1rem;
     width: 20rem;
@@ -177,17 +183,25 @@ td {
 
 .listing-card-top {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    width: 90%;
+    justify-content: center;
+    align-items: center;
+}
+
+.listing-card-info-div {
+    width: 100%;
 }
 
 .listing-info-div {
     width: 90%;
-    overflow-y: hidden;
-    display: block;
-    height: 6rem;
-    line-height: 1.5rem;
-    overflow-y: hidden;
+    min-width: 90%;
+    display: inline-block;
+    white-space: nowrap;
+    /* display: block; */
+    /* height: 6rem; */
     text-overflow: ellipsis; /* FIXME: ellipsis is not working */
+    overflow: hidden;
 }
 
 .one-item-image {
