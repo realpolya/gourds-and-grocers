@@ -63,7 +63,7 @@ Halloween color palette:
 }
 ```
 
-### ERD
+### Entity Relationship Diagram (ERD)
 
 ERD work was completed using FigJam. The data models use both embedding and referencing. ```Cart``` model utilizes subschema for items in the cart (item id and quantity). All three models reference each other.
 
@@ -81,6 +81,21 @@ Visit the [Trello board](https://trello.com/invite/b/66feb6176c1bcc2536c185a2/AT
 * Express.js
 * MongoDB, Mongoose
 * HTML / CSS / JavaScript
+* npm packages:
+
+``` js
+"dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "express-session": "^1.18.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.7.0",
+    "morgan": "^1.10.0",
+    "serve-favicon": "^2.5.0"
+  }
+```
 
 ## Routes
 
@@ -154,36 +169,24 @@ Visit the [Trello board](https://trello.com/invite/b/66feb6176c1bcc2536c185a2/AT
 
 ## Pages
 
-#### *Landing page*
-![landing page screenshot](./assets/index.png)
+#### *Marketplace page*
+![marketplace page screenshot](./assets/planning/web/web2.png)
 
-#### *Play-setup page*
-![play-setup page screenshot](./assets/play-setup.png)
-##### *Fleet setup*
-![play-setup page screenshot](./assets/play-setup2.png)
-![play-setup page screenshot](./assets/play-setup3.png)
+#### *Halloween item page*
+![market item page screenshot](./assets/planning/web/web1.png)
 
-#### *Play page*
-![play page screenshot](./assets/play.png)
-![play page screenshot](./assets/play2.png)
-![play page screenshot](./assets/play3.png)
-
-#### *Win/loss page*
-![win/loss page screenshot](./assets/winloss.png)
-
-#### *Instructions page*
-![instructions page screenshot](./assets/instructions.png)
+#### *Grocer home page*
+![grocer home page screenshot](./assets/planning/web/web3.png)
 
 ### Mobile versions
 
-#### *Play-setup page on mobile*
-![play-setup page mobile screenshot](./assets/play-setup-mobile.png)
+#### *Halloween market mobile page*
+![halloween market screenshot](./assets/planning/web/mobile1.png)
 
-#### *Play page on mobile*
-![play page mobile screenshot](./assets/play-mobile.png)
+![halloween market screenshot](./assets/planning/web/mobile2.png)
 
-#### *Instructions page on mobile*
-![instructions page mobile screenshot](./assets/instructions-mobile.png)
+#### *Grocer's sales history page*
+![grocer's sales history screenshot](./assets/planning/web/mobile3.png)
 
 ### JS model files
 
@@ -202,92 +205,42 @@ Defines mongoose model for Cart item, and it is created for every shopper when t
 
 ## Future improvements
 
-### Combining User and Grocer Into One User
+* ### Combining User and Grocer Into One User
 
-TODO
+It would be an important next step – give dual functionality to a single account, so grocers can have carts and shop, while shoppers can also create listings and sell. Routes would need to change, and it might become confusing.
 
-The logic for the computer setup employs a recursive function that sometimes leads to maximum call stack error as it can't find the next cell for the ship. If it happens, reloading the page usually solves it, but ideally this needs to be debugged. 
+* ### Restocking Items Automatically
 
-What happens is that the game does not account for ships occupying other cells when it calculates orientation and adjacent cells. Imagine the situation below from a player setup:
+The grocer specifies whether the item is restocked in the following ```Grocery``` model's excerpt. 
 
-![instructions page mobile screenshot](./assets/bug.png)
-After the carrier was set, battleship needs to occupy 4 cells. It technically can't go horizontally since there is not enough room. However, the code still suggests horizontal cell as an option. See what happens if we click on the horizontal cell:
-![instructions page mobile screenshot](./assets/bug2.png)
-A player can click GO BACK button in this situation and restart the building process of this specific ship.
-
-The computer, however, does not have a GO BACK button. In this situation, it will keep looking for a cell to occupy via recursive function depicted below. It won't find any options and will exceed maximum call stack.
-
-```javascript
-    
-    // render ships for computer
-    function computerBoard() {
-      
-        //...picking the cell from available ones...
-        
-        if (shipsOnBoard === shipsComputer.length) {
-            
-            computerReady = true;
-            console.log(aGrid);
-            return true;
-
-        } else {
-            
-            // recursive function (untill all ships are completed)
-            computerBoard();
-
-        }
-
-    }
-    
-    computerBoard();
+``` js
+quantity: {
+        type: Number,
+        required: true,
+        default: 1
+    },
+resupplied: {
+        type: Boolean,
+        required: true,
+    },
+frequency: Number,
 ```
 
-In order to solve this issue, I need to introduce another function that recalculates the available cells to ensure that the computer does not see starting cells with not enough room nearby as an option.
+It would be a great next step to create a timer mechanism where if the ```quantity``` is equal to 0, the timer sets off and automatically replenishes the stock once it reaches the ```frequency``` value.
 
-### Color values in JS
-Colors below for ```fire``` and ```suggest``` keys do not properly work if passed as hex values. The ```unhighlightCells()``` function does not remove the color. If they are passed as simple string color names, everything works. Not sure why this is happening. Ideally, shamrock green color would replace the ```fire``` and ```suggest``` values.
-```javascript
-const colors = {
-    block: "white",
-    adjacent: "#415A77", 
-    suggest: "mediumseagreen",
-    board: "#E0E1DD",
-    ship: "#778DA9", 
-    button: "indianred",
-    fire: "mediumseagreen", //#4DA167(shamrock green)
-    hit: "indianred",
-    miss: "#415A77", 
-    dead: "#0D1B2A",
-    firebutton: "grey",
-    disabled: "grey" 
-}
-```
+* ### Drag and Drop Image for Listing
 
-### Mobile
-The mobile version of the game can be improved further. The grid is too large, and its cells do not maintain 1/1 aspect ratio. The appearance and related functionality need more work.
+At this point, the grocers have to add publicly available images via links. It would be great to add a drag-and-drop feature for images added locally and uploaded to the server.
 
-### Site menu – mobile
-Site menu should shrink into a menu icon that displays a drop-down menu once clicked.
+* ### Cleaner Code
 
-### Audio sounds
-The game can employ various sounds to make it more entertaining. Sounds can differ based on whether the attack hit a ship or whether it sank a ship.
+The code has redundant functions and routes that could be optimized.
 
-### Emojis
-At this time, the game uses Unicode emojis to depict the ships. They are stored as strings and easily retrievable from the object depicted below.
+* ### Arrays of Objects in Array of Objects Complexity
 
-```javascript
-const ships = [
-    {
-        name: "carrier",
-        length: 5,
-        emoji: "🚢", 
-        location: [],
-        hits: 0,
-        alive: true
-    }
-]
-```
-For the design improvement of the game, it would be great to use pixelated PNG emojis of the ships, similar to the one depicted below. However, it is not yet clear on how to store a retrievable PNG inside the object as a string without making it too complicated.
+As the database grows, the time to retrieve data would get longer and longer as the Big O of nested loops present in the project isof quadratic complexity (if not cubic...). The models reference each  other and create a lot of arrays of objects within arrays of objects (especially for past orders), and it becomes complicated to retrieve data. Maybe creating another data model would help with that instead of embedding within embedding.
+
+---------
 
 ### Sources
 
