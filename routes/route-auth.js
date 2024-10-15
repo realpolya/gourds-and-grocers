@@ -4,7 +4,7 @@ import User from "../models/model-user.js";
 import Cart from "../models/model-cart.js";
 import bcrypt from "bcrypt";
 
-import { signIn, signUp } from '../controllers/auth.js'
+import { signIn, signUp, renderSignUp, renderSignIn, signOut } from '../controllers/auth.js'
 
 /* --------------------------------Express & Mongoose--------------------------------*/
 
@@ -13,19 +13,11 @@ const router = Router();
 /* --------------------------------Routes--------------------------------*/
 
 // GET routes
-router.get("/sign-up", (req, res) => {
-    res.render("templates/auth/signup.ejs");
-});
+router.get("/sign-up", renderSignUp);
 
-router.get("/sign-in", (req, res) => {
-    res.render("templates/auth/signin.ejs");
-});
+router.get("/sign-in", renderSignIn);
 
-router.get("/sign-out", (req, res) => {
-    req.session.destroy(() => {
-        res.redirect("/");
-    });
-})
+router.get("/sign-out", signOut);
 
 // POST routes
 router.post("/sign-up", signUp);

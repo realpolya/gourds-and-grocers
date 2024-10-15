@@ -5,6 +5,20 @@ import bcrypt from "bcrypt";
 
 /* --------------------------------Functions--------------------------------*/
 
+const renderSignUp = (req, res) => {
+    res.render("templates/auth/signup.ejs");
+}
+
+const renderSignIn = (req, res) => {
+    res.render("templates/auth/signin.ejs");
+}
+
+const signOut = (req, res) => {
+    req.session.destroy(() => {
+        res.redirect("/");
+    });
+}
+
 const signUp = async (req, res) => {
     
     // password check
@@ -99,4 +113,8 @@ const signIn = async (req, res) => {
 
 /* --------------------------------Exports--------------------------------*/
 
-export { signUp, signIn }
+export { signUp, 
+    signIn, 
+    renderSignUp, 
+    renderSignIn,
+    signOut }
