@@ -1,5 +1,4 @@
 /* --------------------------------Imports--------------------------------*/
-import express from "express";
 import Grocery from "../models/model-grocery.js";
 import User from "../models/model-user.js";
 
@@ -61,9 +60,6 @@ const searchList = async (searchValue) => {
 
 /* --------------------------------Main Functions--------------------------------*/
 
-// GET routes – SIGNED OUT
-// Marketplace view page – not signed-in TODO: sort/search function
-
 const displayMarket = async (req, res) => {
     
     try {
@@ -118,7 +114,6 @@ const displayFilter = async (req, res) => {
 
         // FIXME:
         const user = req.session.user ? await User.findById(req.session.user._id) : undefined;
-        console.log('user is ', user)
         let halloween; // value to load css stylesheet
         const grocer = false;
 
@@ -173,7 +168,6 @@ const displayItem = async (req, res) => {
     const listing = await Grocery.findById(id);
 
     // try finding a user
-    // let user = false;
     const user = req.session.user ? await User.findById(req.session.user._id) : undefined;
     const grocer = false; // is grocer changing his items?
     

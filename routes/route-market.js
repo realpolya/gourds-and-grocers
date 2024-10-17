@@ -1,12 +1,8 @@
 /* --------------------------------Imports--------------------------------*/
 import Router from "express";
 import express from "express";
-import Grocery from "../models/model-grocery.js";
-import User from "../models/model-user.js";
 import { isSignedIn } from "../middleware/is-signed-in.js";
-
 import { displayMarket, displaySort, displayFilter, displaySearch, displayItem } from '../controllers/market.js';
-
 
 /* --------------------------------Express & Mongoose--------------------------------*/
 
