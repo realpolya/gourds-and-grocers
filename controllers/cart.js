@@ -1,15 +1,9 @@
 /* --------------------------------Imports--------------------------------*/
-import Router from "express";
 import Grocery from "../models/model-grocery.js";
 import User from "../models/model-user.js";
 import Cart from "../models/model-cart.js";
 
-
-/* --------------------------------Express & Mongoose--------------------------------*/
-
-const router = Router();
-
-/* --------------------------------Functions--------------------------------*/
+/* --------------------------------Helper Functions--------------------------------*/
 
 const getCartItems = (cart, groceries) => {
     
@@ -39,12 +33,9 @@ const calculateTotal = (itemArray) => {
 
 }
 
-/* --------------------------------Routes--------------------------------*/
+/* --------------------------------Main GET Functions--------------------------------*/
 
-// GET routes
-
-// GET cart view
-router.get('/', async (req, res) => {
+const displayCart = async (req, res) => {
 
     try {
         // find user
@@ -77,14 +68,11 @@ router.get('/', async (req, res) => {
 
     }
 
-});
+}
 
+/* --------------------------------Main POST/PUT Functions--------------------------------*/
 
-
-// POST routes
-
-// POST new grocery item to cart
-router.post('/:id', async (req, res) => {
+const putItemInCart = async (req, res) => {
     
     try {
         // retrieve item
@@ -193,10 +181,9 @@ router.post('/:id', async (req, res) => {
 
     }
     
-})
+}
 
-// PUT remove item from cart
-router.put('/:id/remove', async (req, res) => {
+const removeItemFromCart = async (req, res) => {
 
     try {
         
@@ -249,10 +236,9 @@ router.put('/:id/remove', async (req, res) => {
         console.error(err);
     }
 
-})
+}
 
-// PUT clear cart
-router.put('/clear', async (req, res) => {
+const clearCart = async (req, res) => {
     
     // find user
     const user = await User.findById(req.session.user._id);
@@ -272,10 +258,9 @@ router.put('/clear', async (req, res) => {
     // render
     res.render('templates/shopper/error.ejs', { user, message });
 
-})
+}
 
-// PUT checkout cart
-router.put('/checkout', async (req, res) => {
+const checkoutCart = async (req, res) => {
 
     try {
 
@@ -334,7 +319,7 @@ router.put('/checkout', async (req, res) => {
         user.pastOrders.push(currentOrder);
 
         // change balance for user
-        user.balance = +user.balance - (+cartObj.total);
+        user.balance = Math.trunc((+user.balance - (+cartObj.total)) * 100) / 100;
         await user.save();
 
         // change profts for EVERY grocer, create paid array
@@ -394,8 +379,8 @@ router.put('/checkout', async (req, res) => {
         console.error(err);
     }
 
-});
+}
 
 /* --------------------------------Exports--------------------------------*/
 
-export default router;
+export { displayCart, putItemInCart, removeItemFromCart, clearCart, checkoutCart }

@@ -8,17 +8,12 @@ import morgan from "morgan";
 import session from "express-session";
 import favicon from "serve-favicon";
 
-// models import
-import User from "./models/model-user.js";
-import Grocery from "./models/model-grocery.js";
-import Cart from "./models/model-cart.js";
-
 // controllers import
 import authController from "./routes/route-auth.js";
 import marketController from "./routes/route-market.js";
 import groceriesController from "./routes/route-groceries.js";
+import cartController from "./routes/route-cart.js";
 
-import cartController from "./controllers/cart.js";
 import shopController from "./controllers/shop.js";
 
 // middleware import
