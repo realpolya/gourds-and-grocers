@@ -1,28 +1,11 @@
 /* --------------------------------Imports--------------------------------*/
-import Router from "express";
+
 import Grocery from "../models/model-grocery.js";
 import User from "../models/model-user.js";
 
+/* --------------------------------Main GET Functions--------------------------------*/
 
-/* --------------------------------Express & Mongoose--------------------------------*/
-
-const router = Router();
-
-/* --------------------------------Functions--------------------------------*/
-
-const createGrocery = async (req, res) => {
-    
-    const user = await User.findById(req.session.user._id);
-    res.render("templates/grocer/new-item.ejs", { user });
-
-}
-
-
-/* --------------------------------Routes--------------------------------*/
-
-// GET routes
-// GET view listings
-router.get('/', async (req, res) => {
+const displayListings = async (req, res) => {
 
     try {
         const user = await User.findById(req.session.user._id);
@@ -35,10 +18,9 @@ router.get('/', async (req, res) => {
         console.error(err);
     }
 
-});
+}
 
-// GET grocer home
-router.get("/home", async (req, res) => {
+const displayGrocerHome = async (req, res) => {
     
     try {
         
@@ -58,10 +40,9 @@ router.get("/home", async (req, res) => {
     } catch (err) {
         console.error(err);
     }   
-});
+}
 
-// GET archived listings
-router.get('/archived', async (req, res) => {
+const displayArchived = async (req, res) => {
 
     try {
         const user = await User.findById(req.session.user._id);
@@ -72,13 +53,16 @@ router.get('/archived', async (req, res) => {
         console.error(err);
     }
 
-});
+}
 
-// GET add new grocery item
-router.get('/new', createGrocery);
+const displayCreateGrocery = async (req, res) => {
+    
+    const user = await User.findById(req.session.user._id);
+    res.render("templates/grocer/new-item.ejs", { user });
 
-// GET account view for the grocer
-router.get('/account', async (req, res) => {
+}
+
+const displayGrocerAccount = async (req, res) => {
     try {
         
         const user = await User.findById(req.session.user._id);
@@ -89,10 +73,9 @@ router.get('/account', async (req, res) => {
     } catch (err) {
         console.error(err);
     }
-})
+}
 
-// GET view of history
-router.get('/history', async (req, res) => {
+const displayGrocerHistory = async (req, res) => {
     try {
         
         const user = await User.findById(req.session.user._id);
@@ -135,10 +118,9 @@ router.get('/history', async (req, res) => {
     } catch (err) {
         console.error(err);
     }
-})
+}
 
-// GET individual page for the item
-router.get('/:id', async (req, res) => {
+const displayListing = async (req, res) => {
 
     const id = req.params.id;
 
@@ -154,10 +136,9 @@ router.get('/:id', async (req, res) => {
         console.error(err);
     }
 
-})
+}
 
-// GET editing page for the item
-router.get('/:id/edit', async (req, res) => {
+const displayEdit = async (req, res) => {
 
     const id = req.params.id;
 
@@ -171,15 +152,12 @@ router.get('/:id/edit', async (req, res) => {
         console.error(err);
     }
 
-})
+}
 
+/* --------------------------------Main POST/PUT Functions--------------------------------*/
 
-
-
-// POST routes
-
-// POST new grocery item
-router.post('/', async (req, res) => {
+ 
+const createGrocery = async (req, res) => {
     
     try {
         const user = await User.findById(req.session.user._id);
@@ -204,10 +182,9 @@ router.post('/', async (req, res) => {
         console.error(err);
     }
     
-})
+}
 
-// PUT deactivate account
-router.put('/account/deactiv', async (req, res) => {
+const deactivateGrocerAccount = async (req, res) => {
     
     try {
 
@@ -238,10 +215,9 @@ router.put('/account/deactiv', async (req, res) => {
 
     }
     
-})
+}
 
-// POST inactivate the listing
-router.post('/:id/inactive', async (req, res) => {
+const deactivateListing = async (req, res) => {
 
     const id = req.params.id;
     
@@ -269,10 +245,9 @@ router.post('/:id/inactive', async (req, res) => {
         console.error(err);
     }
     
-})
+}
 
-// POST reactivate the listing
-router.post('/:id/relist', async (req, res) => {
+const reactivateListing = async (req, res) => {
 
     const id = req.params.id;
     
@@ -301,10 +276,9 @@ router.post('/:id/relist', async (req, res) => {
         console.error(err);
     }
     
-})
+}
 
-// PUT existing grocery item
-router.put('/:id', async (req, res) => {
+const updateGrocery = async (req, res) => {
     
     const id = req.params.id;
 
@@ -326,9 +300,10 @@ router.put('/:id', async (req, res) => {
         console.error(err);
     }
     
-})
-
+}
 
 /* --------------------------------Exports--------------------------------*/
 
-export default router;
+export { displayListings, displayGrocerHome, displayArchived, displayCreateGrocery, 
+    displayGrocerAccount, displayGrocerHistory, displayListing, displayEdit, 
+    createGrocery, deactivateGrocerAccount, deactivateListing, reactivateListing, updateGrocery };
