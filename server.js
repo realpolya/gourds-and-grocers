@@ -13,8 +13,7 @@ import authController from "./routes/route-auth.js";
 import marketController from "./routes/route-market.js";
 import groceriesController from "./routes/route-groceries.js";
 import cartController from "./routes/route-cart.js";
-
-import shopController from "./controllers/shop.js";
+import shopController from "./routes/route-shop.js";
 
 // middleware import
 import { isSignedIn } from "./middleware/is-signed-in.js";

@@ -1,32 +1,16 @@
 /* --------------------------------Imports--------------------------------*/
-import Router from "express";
-import Grocery from "../models/model-grocery.js";
 import User from "../models/model-user.js";
-import Cart from "../models/model-cart.js";
 
+/* --------------------------------Main GET Functions--------------------------------*/
 
-/* --------------------------------Express & Mongoose--------------------------------*/
-
-const router = Router();
-
-/* --------------------------------Functions--------------------------------*/
-
-
-
-/* --------------------------------Routes--------------------------------*/
-
-// GET routes
-
-// shopper home
-router.get("/", async (req, res) => {
+const displayShopperHome = async (req, res) => {
     const user = await User.findById(req.session.user._id);
     let message;
     let grocersPaid;
     res.render("templates/shopper/shopper-home", { user, message, grocersPaid })
-});
+}
 
-// GET account view
-router.get('/account', async (req, res) => {
+const displayShopperAccount = async (req, res) => {
 
     try {
         // find user
@@ -44,10 +28,9 @@ router.get('/account', async (req, res) => {
 
     }
 
-});
+}
 
-// get past orders
-router.get('/history', async (req, res) => {
+const displayShopperHistory = async (req, res) => {
       
     try {
 
@@ -69,14 +52,11 @@ router.get('/history', async (req, res) => {
 
     }
 
-})
+}
 
+/* --------------------------------Main POST/PUT Functions--------------------------------*/
 
-
-// POST routes
-
-// PUT money to the account
-router.put('/account', async (req, res) => {
+const addMoney = async (req, res) => {
     
     try {
 
@@ -103,10 +83,9 @@ router.put('/account', async (req, res) => {
 
     }
     
-})
+}
 
-// PUT deactivate account
-router.put('/account/deactiv', async (req, res) => {
+const deactivateShopperAccount = async (req, res) => {
     
     try {
 
@@ -129,10 +108,9 @@ router.put('/account/deactiv', async (req, res) => {
 
     }
     
-})
-
-
+}
 
 /* --------------------------------Exports--------------------------------*/
 
-export default router;
+export { displayShopperHome, displayShopperAccount, displayShopperHistory, 
+    addMoney, deactivateShopperAccount };
