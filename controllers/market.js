@@ -1,17 +1,9 @@
 /* --------------------------------Imports--------------------------------*/
-import Router from "express";
 import express from "express";
 import Grocery from "../models/model-grocery.js";
 import User from "../models/model-user.js";
-import { isSignedIn } from "../middleware/is-signed-in.js";
 
-
-/* --------------------------------Express & Mongoose--------------------------------*/
-
-const router = Router();
-const app = express();
-
-/* --------------------------------Functions--------------------------------*/
+/* --------------------------------Helper Functions--------------------------------*/
 
 const sortList = async (sortValue) => {
     
@@ -67,24 +59,20 @@ const searchList = async (searchValue) => {
     return listings;
 }
 
-/* --------------------------------Routes--------------------------------*/
+/* --------------------------------Main Functions--------------------------------*/
 
 // GET routes – SIGNED OUT
 // Marketplace view page – not signed-in TODO: sort/search function
-router.get("/", async (req, res) => {
+
+const displayMarket = async (req, res) => {
     
     try {
-        let user;
+        const user = req.session.user ? await User.findById(req.session.user._id) : undefined;
         const listings = await Grocery.find({ listed: true });
         const grocer = false;
+
         // all of grocers
         const allGrocers = await User.find({ account: 'grocer', activated: true });
-
-        /* ----------------- deal with sort/filter/search ------------------- */
-
-
-
-        /* ----------------- finish sort/filter/search ------------------- */
 
         let halloween;
 
@@ -93,14 +81,13 @@ router.get("/", async (req, res) => {
     } catch (err) {
         console.log(err);
     }
-});
+};
 
-// GET route for sort (signed out version)
-router.get("/sort", async (req, res) => {
+const displaySort = async (req, res) => {
 
     try {
 
-        let user;
+        const user = req.session.user ? await User.findById(req.session.user._id) : undefined;
         let halloween; // value to load css stylesheet
         const grocer = false;
 
@@ -123,14 +110,15 @@ router.get("/sort", async (req, res) => {
     } catch (err) {
         console.log(err);
     }
-});
+};
 
-// GET route for filter (signed out version)
-router.get("/filter", async (req, res) => {
+const displayFilter = async (req, res) => {
 
     try {
 
-        let user;
+        // FIXME:
+        const user = req.session.user ? await User.findById(req.session.user._id) : undefined;
+        console.log('user is ', user)
         let halloween; // value to load css stylesheet
         const grocer = false;
 
@@ -151,15 +139,13 @@ router.get("/filter", async (req, res) => {
     } catch (err) {
         console.log(err);
     }
-});
+}
 
-
-// GET route for search (signed out version)
-router.get("/search", async (req, res) => {
+const displaySearch = async (req, res) => {
 
     try {
 
-        let user;
+        const user = req.session.user ? await User.findById(req.session.user._id) : undefined;
         let halloween; // value to load css stylesheet
         const grocer = false;
 
@@ -180,16 +166,15 @@ router.get("/search", async (req, res) => {
     } catch (err) {
         console.log(err);
     }
-});
-  
+}
 
-// Item view page (different from /groceries/item which is just for the grocer)
-router.get("/item/:id", async (req, res) => {
+const displayItem = async (req, res) => {
     const id = req.params.id;
     const listing = await Grocery.findById(id);
 
     // try finding a user
-    let user = false;
+    // let user = false;
+    const user = req.session.user ? await User.findById(req.session.user._id) : undefined;
     const grocer = false; // is grocer changing his items?
     
     // all of grocers TODO: find actual grocer by ID of listing
@@ -199,15 +184,12 @@ router.get("/item/:id", async (req, res) => {
     let message;
 
     res.render("templates/main/item", { listing, user, grocer, allGrocers, message });
-});
-
-
+}
 
 // GET Signed in routes
-app.use(isSignedIn);
+// app.use(isSignedIn);
 
-// user view of market TODO: sort/search function
-router.get("/signed-in", async (req, res) => {
+const displayMarketIn = async (req, res) => {
     const listings = await Grocery.find({ listed: true });
     const grocer = false; // is grocer changing his items?
     const user = await User.findById(req.session.user._id);
@@ -215,10 +197,9 @@ router.get("/signed-in", async (req, res) => {
     const allGrocers = await User.find({ account: 'grocer', activated: true });
     let halloween; // load css for halloween
     res.render("templates/main/market", { listings, grocer, user, allGrocers, halloween });
-});
+}
 
-// GET route for sort (signed in version)
-router.get("/signed-in/sort", async (req, res) => {
+const displaySortIn = async (req, res) => {
 
     try {
 
@@ -245,10 +226,9 @@ router.get("/signed-in/sort", async (req, res) => {
     } catch (err) {
         console.log(err);
     }
-});
+}
 
-// GET route for filter (signed IN version)
-router.get("/signed-in/filter", async (req, res) => {
+const displayFilterIn = async (req, res) => {
 
     try {
 
@@ -273,10 +253,9 @@ router.get("/signed-in/filter", async (req, res) => {
     } catch (err) {
         console.log(err);
     }
-});
+}
 
-// GET route for search (signed IN version)
-router.get("/signed-in/search", async (req, res) => {
+const displaySearchIn = async (req, res) => {
 
     try {
 
@@ -299,10 +278,9 @@ router.get("/signed-in/search", async (req, res) => {
     } catch (err) {
         console.log(err);
     }
-});
+}
 
-// user view page
-router.get("/item/:id/shop", async (req, res) => {
+const displayItemIn = async (req, res) => {
     const id = req.params.id;
     const listing = await Grocery.findById(id);
 
@@ -316,8 +294,8 @@ router.get("/item/:id/shop", async (req, res) => {
     let message;
 
     res.render("templates/main/item", { listing, user, grocer, allGrocers, message });
-});
+}
 
 /* --------------------------------Exports--------------------------------*/
 
-export default router;
+export { displayMarket, displaySort, displayFilter, displaySearch, displayItem };
