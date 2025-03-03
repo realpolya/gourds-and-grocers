@@ -304,6 +304,19 @@ li {
     justify-content: center;
 }
 
+#home-p-intro {
+    width: 70%;
+    text-align: center;
+}
+
+#home-link {
+    text-decoration: none;
+}
+
+#home-link:hover {
+    cursor: pointer;
+}
+
 /* .griffy-regular {
     font-family: "Griffy", system-ui;
     font-weight: 400;

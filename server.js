@@ -27,6 +27,8 @@ const app = express();
 
 // port info
 const PORT = process.env.PORT ? process.env.PORT : "3000";
+// const PORT = "3000";
+
 
 // mongoose connect
 mongoose.connect(process.env.MONGODB_URI)
@@ -87,4 +89,4 @@ app.use("/shop", shopController);
 // Listen
 app.listen(PORT, () => {
     console.log(`The express app is ready on port ${PORT}!`);
-  })
+})
